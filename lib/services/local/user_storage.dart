@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:client/models/LoginPage/Character/character.dart';
 import 'package:client/models/Utilities/base_url.dart';
+import 'package:client/services/handlers/buff_bar_handler.dart';
 import 'package:client/services/handlers/logs_list_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,12 +12,13 @@ class UserStorage {
   late Character character;
 }
 
-class CharacterHUD extends ChangeNotifier {
+class HealthBarHandler extends ChangeNotifier {
   final storage = GetIt.I<UserStorage>();
   final logsHandler = GetIt.I<LogsListHandler>();
+  final buffBarHandler = GetIt.I<BuffBarHandler>();
 
-  final characterHUDProvider = ChangeNotifierProvider<CharacterHUD>((ref) {
-    return GetIt.I<CharacterHUD>();
+  final characterHUDProvider = ChangeNotifierProvider<HealthBarHandler>((ref) {
+    return GetIt.I<HealthBarHandler>();
   });
 
   int _currentHP = 0;
@@ -35,6 +37,7 @@ class CharacterHUD extends ChangeNotifier {
     hubConnection.on('UpdateHP', _handleUpdateHP);
     hubConnection.on('UpdateMP', _handleUpdateMP);
     hubConnection.on('UpdateLogs', logsHandler.updatelogList);
+    hubConnection.on('UpdateBuffBar', buffBarHandler.updateBuffBar);
     hubConnection.onclose((exception) {
       if (context.mounted) Navigator.pushReplacementNamed(context, '/');
     });

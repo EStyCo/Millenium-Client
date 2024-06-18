@@ -1,4 +1,5 @@
 import 'package:client/services/handlers/monster_list_handler.dart';
+import 'package:client/services/local/user_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
@@ -7,6 +8,7 @@ class MonsterListWidget extends ConsumerWidget {
   MonsterListWidget({super.key});
 
   final handler = GetIt.I<MonsterListHandler>();
+  final storage = GetIt.I<UserStorage>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -54,11 +56,21 @@ class MonsterListWidget extends ConsumerWidget {
                       child: CircleAvatar(
                           radius: 25,
                           backgroundColor: Colors.black12,
-                          child:
-                              Image.asset('assets/images/monsters/goblin.png')),
+                          child: Image.asset(
+                              'assets/images/monsters/${provider.listMonster[index].imagePath}')),
                     ),
-                    title: Text(
-                      '[${provider.listMonster[index].id}] ${provider.listMonster[index].name}',
+                    title: Row(
+                      children: [
+                        if (provider.listMonster[index].target ==
+                            storage.character.name)
+                          const Icon(
+                            Icons.track_changes_outlined,
+                            color: Colors.red,
+                          ),
+                        Text(
+                          '${provider.listMonster[index].name} [id${provider.listMonster[index].id}]',
+                        ),
+                      ],
                     ),
                     subtitle: Row(
                       children: [

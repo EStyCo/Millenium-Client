@@ -50,7 +50,7 @@ class SpellListWidgetState extends ConsumerState<SpellListWidget> {
     } else {
       return Container(
         color: Colors.transparent,
-        height: 70,
+        constraints: const BoxConstraints(maxHeight: 70),
         child: ListView.builder(
           padding: const EdgeInsets.all(5),
           scrollDirection: Axis.horizontal,
@@ -107,21 +107,3 @@ class SpellListWidgetState extends ConsumerState<SpellListWidget> {
     }
   }
 }
-
-
-// ElevatedButton(
-//                 onPressed: provider.spellList[index].isReady
-//                     ? () {
-//                         provider
-//                             .attackMonster(provider.spellList[index].spellType);
-//                       }
-//                     : null,
-//                 child: Row(children: [
-//                   CircleAvatar(
-//                     radius: 10,
-//                     backgroundImage: AssetImage('spells/simple.png'),
-//                   ),
-//                   Text(
-//                       '[${provider.spellList[index].restSeconds}] ${provider.spellList[index].name}')
-//                 ]),
-//               ),

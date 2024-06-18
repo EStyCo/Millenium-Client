@@ -5,7 +5,7 @@ import 'package:get_it/get_it.dart';
 
 class HealthBarWidget extends ConsumerWidget {
   HealthBarWidget({super.key});
-  final characterHUD = GetIt.I<CharacterHUD>();
+  final characterHUD = GetIt.I<HealthBarHandler>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

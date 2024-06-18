@@ -23,4 +23,12 @@ class StatsService extends BaseService {
       url: '${BaseUrl.Get()}$route/update',
     ));
   }
+
+  Future<APIResponse> getStates(NameRequest dto) {
+    return sendAsync(APIRequest(
+      apiType: ApiType.POST,
+      data: jsonEncode(dto.toJson()),
+      url: '${BaseUrl.Get()}$route/states',
+    ));
+  }
 }

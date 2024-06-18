@@ -6,6 +6,7 @@ class Monster {
   int maxHP;
   String name;
   String imagePath;
+  String target;
   List<State> states;
 
   Monster({
@@ -14,6 +15,7 @@ class Monster {
     required this.maxHP,
     required this.name,
     required this.imagePath,
+    required this.target,
     required this.states,
   });
 
@@ -27,6 +29,7 @@ class Monster {
       maxHP: json['maxHP'] as int,
       name: json['name'] as String,
       imagePath: json['imagePath'] as String,
+      target: json['target'] as String,
       states: statesList
     );
   }

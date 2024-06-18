@@ -22,7 +22,7 @@ class InitialLoginState extends LoginState {
   @override
   Widget build(BuildContext context) {
     final LoginBloc loginBloc = BlocProvider.of<LoginBloc>(context);
-    BaseUrl.SwitchToLocal();
+    BaseUrl.switchToLocal();
 
     return Scaffold(
       appBar: AppBar(),

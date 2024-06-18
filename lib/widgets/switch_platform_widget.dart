@@ -18,7 +18,7 @@ class _SwitchPlatformState extends State<SwitchPlatformWidget> {
         BaseUrl.SwitchToVPS();
         connection = 'VPS';
       } else {
-        BaseUrl.SwitchToLocal();
+        BaseUrl.switchToLocal();
         connection = 'local';
       }
       isVPS = !isVPS;
