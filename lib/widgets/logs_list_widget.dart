@@ -13,8 +13,7 @@ class LogsListWidget extends ConsumerStatefulWidget {
 }
 
 class LogsListWidgetState extends ConsumerState<LogsListWidget> {
-  final handler = GetIt.I<LogsListHandler>();
-  final ScrollController _scrollController = ScrollController();
+  final _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -37,15 +36,12 @@ class LogsListWidgetState extends ConsumerState<LogsListWidget> {
   Widget build(BuildContext context) {
     final provider = ref.watch(
       ChangeNotifierProvider<LogsListHandler>(
-        (ref) => handler,
+        (ref) => GetIt.I<LogsListHandler>(),
       ),
     );
 
     Color changeColor(int index) {
-      if (index.isEven) {
-        return Colors.black12;
-      }
-      return Colors.white;
+      return index.isEven ? Colors.black12 : Colors.white;
     }
 
     if (provider.logsList.isEmpty) {

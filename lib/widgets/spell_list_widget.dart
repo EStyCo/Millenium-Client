@@ -1,14 +1,12 @@
+import 'package:client/services/handlers/spell_list_handler.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:ui';
-import 'package:client/services/handlers/spell_list_handler.dart';
-import 'package:client/services/handlers/monster_list_handler.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_it/get_it.dart';
 
 class SpellListWidget extends ConsumerStatefulWidget {
-  SpellListWidget({super.key});
-  final MonsterListHandler monsterHandler = GetIt.I<MonsterListHandler>();
+  const SpellListWidget({super.key});
+  //final BattlePlaceHandler handler = GetIt.I<BattlePlaceHandler>();
 
   @override
   SpellListWidgetState createState() => SpellListWidgetState();

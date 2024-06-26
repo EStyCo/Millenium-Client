@@ -6,7 +6,6 @@ abstract class ActionEvent {
 }
 
 abstract class ActionModalScreenEvent extends ActionEvent {}
-abstract class ActionScreenEvent extends ActionEvent {}
 
 class TownScreenEvent extends ActionScreenEvent {
   @override
@@ -21,6 +20,15 @@ class GladeScreenEvent extends ActionScreenEvent {
   @override
   ActionScreenState get state => const GladeScreenState();
 }
+
+class DarkWoodScreenEvent extends ActionScreenEvent {
+  @override
+  String get place => 'darkwood';
+  @override
+  ActionScreenState get state => const GladeScreenState();
+}
+
+abstract class ActionScreenEvent extends ActionEvent {}
 
 class MentorScreenEvent extends ActionModalScreenEvent {
   @override

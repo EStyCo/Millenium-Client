@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:client/models/Place/attack_monster.dart';
 import 'package:client/models/Request/name_request.dart';
 import 'package:client/models/Spell/spell.dart';
-import 'package:client/services/handlers/monster_list_handler.dart';
+import 'package:client/services/handlers/battle_place_handler.dart';
 import 'package:client/services/local/user_storage.dart';
 import 'package:client/services/web/monster_service.dart';
 import 'package:client/services/web/spell_service.dart';
@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
 class SpellListHandler extends ChangeNotifier {
-  final monsterHandler = GetIt.I<MonsterListHandler>();
+  final monsterHandler = GetIt.I<BattlePlaceHandler>();
   final storage = GetIt.I<UserStorage>();
   final List<Spell> _spellList = [];
   List<Spell> get spellList => _spellList;

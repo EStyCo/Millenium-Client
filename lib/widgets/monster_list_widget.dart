@@ -1,4 +1,4 @@
-import 'package:client/services/handlers/monster_list_handler.dart';
+import 'package:client/services/handlers/battle_place_handler.dart';
 import 'package:client/services/local/user_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,13 +7,13 @@ import 'package:get_it/get_it.dart';
 class MonsterListWidget extends ConsumerWidget {
   MonsterListWidget({super.key});
 
-  final handler = GetIt.I<MonsterListHandler>();
+  final handler = GetIt.I<BattlePlaceHandler>();
   final storage = GetIt.I<UserStorage>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final provider = ref.watch(
-      ChangeNotifierProvider<MonsterListHandler>(
+      ChangeNotifierProvider<BattlePlaceHandler>(
         (ref) => handler,
       ),
     );

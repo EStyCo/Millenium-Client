@@ -14,10 +14,10 @@ abstract class LoginState extends StatelessWidget {
   LoginState({super.key});
 }
 
+// ignore: must_be_immutable
 class InitialLoginState extends LoginState {
   String message;
   InitialLoginState({super.key, String? error}) : message = error ?? '';
-  bool isVPS = false;
 
   @override
   Widget build(BuildContext context) {

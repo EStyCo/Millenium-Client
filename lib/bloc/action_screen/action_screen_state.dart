@@ -1,5 +1,5 @@
 import 'package:client/bloc/action_screen/action_screen_bloc.dart';
-import 'package:client/pages/Screens/action/glade_screen.dart';
+import 'package:client/pages/Screens/action/battle_place_screen.dart';
 import 'package:client/pages/Screens/action/mentor_screen.dart';
 import 'package:client/pages/Screens/action/town_screen.dart';
 import 'package:client/services/local/route_service.dart';
@@ -44,7 +44,7 @@ class GladeScreenState extends ActionScreenState {
   const GladeScreenState({super.key});
   @override
   Widget build(BuildContext context) {
-    return GladeScreen();
+    return BattlePlaceScreen();
   }
 }
 

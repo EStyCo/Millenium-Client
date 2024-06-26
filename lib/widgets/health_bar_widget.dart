@@ -40,25 +40,18 @@ class HealthBarWidget extends ConsumerWidget {
         Row(
           children: [
             ElevatedButton(
-                // style: ButtonStyle(
-                //   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                //     RoundedRectangleBorder(
-                //         borderRadius: BorderRadius.circular(12)),
-                //   ),
-                //   backgroundColor: MaterialStateProperty.all<Color>(
-                //       const Color.fromARGB(255, 202, 208, 255)),
-                // ),
-                onPressed: () {},
-                child: Row(
-                  children: [
-                    const Icon(Icons.bolt_outlined, color: Colors.lightBlue),
-                    const SizedBox(width: 5),
-                    Text(
-                      '$currentMP/$maxMP',
-                      style: const TextStyle(color: Colors.black),
-                    ),
-                  ],
-                )),
+              onPressed: () {},
+              child: Row(
+                children: [
+                  const Icon(Icons.bolt_outlined, color: Colors.lightBlue),
+                  const SizedBox(width: 5),
+                  Text(
+                    '$currentMP/$maxMP',
+                    style: const TextStyle(color: Colors.black),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ],

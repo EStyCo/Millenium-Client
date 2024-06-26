@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:signalr_core/signalr_core.dart';
 
-class MonsterListHandler extends ChangeNotifier {
+class BattlePlaceHandler extends ChangeNotifier {
   late String serverUrl;
   late HubConnection hubConnection = HubConnectionBuilder().withUrl('').build();
   late int targetIndex = -1;
@@ -16,6 +16,9 @@ class MonsterListHandler extends ChangeNotifier {
   late List<ActiveUser> listUsers = [];
   late bool isExpanded = false;
   final monsterService = MonsterService();
+
+  late String description = '';
+  late String imagePath = '';
 
   void pickTarget(int index) {
     targetIndex = index;
@@ -55,11 +58,20 @@ class MonsterListHandler extends ChangeNotifier {
     }
   }
 
+  void _updateDescription(List<dynamic>? args) {
+    if (args != null) {
+      imagePath = args[0];
+      description = args[1];
+      notifyListeners();
+    }
+  }
+
   Future<void> initializeSignalR(String namePlace) async {
     serverUrl = '${BaseUrl.Get()}/PlaceHub';
     final name = GetIt.I<UserStorage>().character.name;
     hubConnection = HubConnectionBuilder().withUrl(serverUrl).build();
 
+    //hubConnection.on('UpdateDescription', _updateDescription);
     hubConnection.on('UpdateListMonsters', _updateListMonsters);
     hubConnection.on('UpdateListUsers', _updateListUsers);
     hubConnection.on('ResetTarget', ((args) => targetIndex = -1));
@@ -68,6 +80,8 @@ class MonsterListHandler extends ChangeNotifier {
       await hubConnection.start();
       await hubConnection.invoke('ConnectToHub',
           args: [ConnectToPlaceHub(name: name, place: namePlace)]);
+      _updateDescription(
+          await hubConnection.invoke('UpdateDescription', args: [namePlace]));
     }
 
     print('Состояние подключения - ${hubConnection.state}');
