@@ -1,6 +1,7 @@
 import 'package:client/bloc/action_screen/action_screen_state.dart';
 
 abstract class ActionEvent {
+  String get name;
   String get place;
   ActionScreenState get state;
 }
@@ -9,6 +10,8 @@ abstract class ActionModalScreenEvent extends ActionEvent {}
 
 class TownScreenEvent extends ActionScreenEvent {
   @override
+  String get name => 'В город';
+  @override
   String get place => 'town';
   @override
   ActionScreenState get state => const TownScreenState();
@@ -16,12 +19,16 @@ class TownScreenEvent extends ActionScreenEvent {
 
 class GladeScreenEvent extends ActionScreenEvent {
   @override
+  String get name => 'На поляну';
+  @override
   String get place => 'glade';
   @override
   ActionScreenState get state => const GladeScreenState();
 }
 
 class DarkWoodScreenEvent extends ActionScreenEvent {
+  @override
+  String get name => 'К темному лесу';
   @override
   String get place => 'darkwood';
   @override
@@ -31,6 +38,8 @@ class DarkWoodScreenEvent extends ActionScreenEvent {
 abstract class ActionScreenEvent extends ActionEvent {}
 
 class MentorScreenEvent extends ActionModalScreenEvent {
+  @override
+  String get name => 'Мастер';
   @override
   String get place => 'spellMaster';
   @override

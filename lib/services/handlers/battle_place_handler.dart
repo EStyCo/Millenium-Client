@@ -14,6 +14,7 @@ class BattlePlaceHandler extends ChangeNotifier {
   late int targetIndex = -1;
   late List<Monster> listMonster = [];
   late List<ActiveUser> listUsers = [];
+  late List<String> routes = [];
   late bool isExpanded = false;
   final monsterService = MonsterService();
 
@@ -66,6 +67,16 @@ class BattlePlaceHandler extends ChangeNotifier {
     }
   }
 
+  void _updateRoutes(List<dynamic>? args) {
+    routes.clear();
+    if (args != null) {
+      for (var item in args) {
+        if (item is String && item.isNotEmpty) routes.add(item);
+      }
+      notifyListeners();
+    }
+  }
+
   Future<void> initializeSignalR(String namePlace) async {
     serverUrl = '${BaseUrl.Get()}/PlaceHub';
     final name = GetIt.I<UserStorage>().character.name;
@@ -82,6 +93,8 @@ class BattlePlaceHandler extends ChangeNotifier {
           args: [ConnectToPlaceHub(name: name, place: namePlace)]);
       _updateDescription(
           await hubConnection.invoke('UpdateDescription', args: [namePlace]));
+      _updateRoutes(
+          await hubConnection.invoke('UpdateRoutes', args: [namePlace]));
     }
 
     print('Состояние подключения - ${hubConnection.state}');
