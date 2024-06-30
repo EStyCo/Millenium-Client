@@ -1,6 +1,7 @@
 import 'package:client/bloc/action_screen/action_screen_bloc.dart';
 import 'package:client/pages/Screens/action/battle_place_screen.dart';
 import 'package:client/pages/Screens/action/mentor_screen.dart';
+import 'package:client/pages/Screens/action/special_place_screen.dart';
 import 'package:client/pages/Screens/action/town_screen.dart';
 import 'package:client/services/local/route_service.dart';
 import 'package:client/services/local/user_storage.dart';
@@ -53,5 +54,13 @@ class MentorScreenState extends ActionScreenState {
   @override
   Widget build(BuildContext context) {
     return MentorScreen();
+  }
+}
+
+class MasturbationScreenState extends ActionScreenState {
+  const MasturbationScreenState({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return SpecialPlaceScreen();
   }
 }

@@ -1,22 +1,22 @@
 import 'package:client/services/handlers/battle_place_handler.dart';
 import 'package:client/widgets/active_users_list_widget.dart';
-import 'package:client/widgets/monster_list_widget.dart';
-import 'package:client/widgets/routes_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:client/widgets/spell_list_widget.dart';
 import 'package:client/widgets/health_bar_widget.dart';
 import 'package:client/widgets/buff_bar_widget.dart';
 import 'package:client/widgets/divider_widget.dart';
+import 'package:client/widgets/routes_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-class BattlePlaceScreen extends ConsumerWidget {
-  BattlePlaceScreen({super.key});
+class SpecialPlaceScreen extends ConsumerWidget {
+  SpecialPlaceScreen({super.key});
 
   final handler = GetIt.I<BattlePlaceHandler>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
     final provider = ref.watch(
       ChangeNotifierProvider<BattlePlaceHandler>(
         (ref) => handler,
@@ -52,13 +52,15 @@ class BattlePlaceScreen extends ConsumerWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
                         child: Align(
-                            alignment: Alignment.center,
-                            heightFactor: 200 / (350 + 50),
-                            child: Image.asset(
-                              'assets/images/locations/${provider.placeInfo.imagePath}',
-                              fit: BoxFit.cover,
-                              width: double.infinity,
-                            )),
+                          alignment: Alignment.center,
+                          heightFactor: 200 / (350 + 50),
+                          child: Image.asset(
+                            //provider.imagePath,
+                            'assets/images/locations/${provider.placeInfo.imagePath}',
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -93,18 +95,6 @@ class BattlePlaceScreen extends ConsumerWidget {
                     children: [ActiveUsersListWidget()],
                   ),
                   const MyDivider(),
-                  ExpansionTile(
-                    onExpansionChanged: (value) =>
-                        GetIt.I<BattlePlaceHandler>().isExpanded = value,
-                    initiallyExpanded: GetIt.I<BattlePlaceHandler>().isExpanded,
-                    title: const Text('Монстры'),
-                    collapsedBackgroundColor: Colors.white,
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.zero),
-                    children: [
-                      MonsterListWidget(),
-                    ],
-                  ),
                   const SizedBox(height: 150),
                 ],
               ),

@@ -1,16 +1,16 @@
-import 'dart:async';
-import 'package:client/models/Place/attack_monster.dart';
-import 'package:client/models/Request/name_request.dart';
-import 'package:client/models/Spell/spell.dart';
 import 'package:client/services/handlers/battle_place_handler.dart';
 import 'package:client/services/local/user_storage.dart';
-import 'package:client/services/web/monster_service.dart';
+import 'package:client/models/Request/attack_monster.dart';
+import 'package:client/models/Request/name_request.dart';
+import 'package:client/services/web/place_service.dart';
 import 'package:client/services/web/spell_service.dart';
+import 'package:client/models/Spell/spell.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'dart:async';
 
 class SpellListHandler extends ChangeNotifier {
-  final monsterHandler = GetIt.I<BattlePlaceHandler>();
+  final placeHandler = GetIt.I<BattlePlaceHandler>();
   final storage = GetIt.I<UserStorage>();
   final List<Spell> _spellList = [];
   List<Spell> get spellList => _spellList;
@@ -39,8 +39,8 @@ class SpellListHandler extends ChangeNotifier {
     if (spell.isReady) {
       spell.isReady = false;
 
-      await MonsterService().attackMonster(AttackMonster(
-          idMonster: monsterHandler.targetIndex,
+      await PlaceService().attackMonster(AttackMonster(
+          idMonster: placeHandler.targetIndex,
           type: skillType,
           name: storage.character.name,
           place: storage.character.place));

@@ -6,7 +6,8 @@ abstract class ActionEvent {
   ActionScreenState get state;
 }
 
-abstract class ActionModalScreenEvent extends ActionEvent {}
+//БОЕВЫЕ ЛОКАЦИИ
+abstract class ActionScreenEvent extends ActionEvent {}
 
 class TownScreenEvent extends ActionScreenEvent {
   @override
@@ -35,7 +36,20 @@ class DarkWoodScreenEvent extends ActionScreenEvent {
   ActionScreenState get state => const GladeScreenState();
 }
 
-abstract class ActionScreenEvent extends ActionEvent {}
+//СПЕЦИАЛЬНЫЕ ЛОКАЦИИ
+abstract class SpecialScreenEvent extends ActionEvent {}
+
+class MasturbationScreenEvent extends SpecialScreenEvent {
+  @override
+  String get name => 'В дрочильню';
+  @override
+  String get place => 'masturbation';
+  @override
+  ActionScreenState get state => const MasturbationScreenState();
+}
+
+//МОДАЛЬНЫЕ ЛОКАЦИИ
+abstract class ActionModalScreenEvent extends ActionEvent {}
 
 class MentorScreenEvent extends ActionModalScreenEvent {
   @override

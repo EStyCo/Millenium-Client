@@ -21,7 +21,8 @@ class Monster {
 
   factory Monster.fromJson(Map<String, dynamic> json) {
     List<dynamic> statesListJson = json['states'];
-    List<State> statesList = statesListJson.map((state) => State.fromJson(state)).toList();
+    List<State> statesList =
+        statesListJson.map((state) => State.fromJson(state)).toList();
 
     return Monster(
       id: json['id'] as int,
@@ -30,7 +31,7 @@ class Monster {
       name: json['name'] as String,
       imagePath: json['imagePath'] as String,
       target: json['target'] as String,
-      states: statesList
+      states: statesList,
     );
   }
 }

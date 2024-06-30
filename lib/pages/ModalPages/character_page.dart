@@ -5,10 +5,7 @@ import 'package:client/widgets/stats_widget.dart';
 import 'package:flutter/material.dart';
 
 class CharacterModalPage extends StatelessWidget {
-  CharacterModalPage({super.key});
-
-  final String selectedValue = 'Option 1';
-  final List<String> options = ['Option 1', 'Option 2', 'Option 3'];
+  const CharacterModalPage({super.key});
 
   @override
   Widget build(BuildContext context) {

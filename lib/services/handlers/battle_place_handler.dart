@@ -1,12 +1,12 @@
-import 'package:client/models/Place/active_user.dart';
 import 'package:client/models/Place/connect_to_place_hub.dart';
-import 'package:client/models/Place/monster.dart';
-import 'package:client/models/Utilities/base_url.dart';
+import 'package:client/models/Place/place_info.dart';
 import 'package:client/services/local/user_storage.dart';
-import 'package:client/services/web/monster_service.dart';
+import 'package:client/models/Utilities/base_url.dart';
+import 'package:client/models/Place/active_user.dart';
+import 'package:client/models/Place/monster.dart';
+import 'package:signalr_core/signalr_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:signalr_core/signalr_core.dart';
 
 class BattlePlaceHandler extends ChangeNotifier {
   late String serverUrl;
@@ -16,10 +16,9 @@ class BattlePlaceHandler extends ChangeNotifier {
   late List<ActiveUser> listUsers = [];
   late List<String> routes = [];
   late bool isExpanded = false;
-  final monsterService = MonsterService();
-
-  late String description = '';
-  late String imagePath = '';
+  late PlaceInfo placeInfo = PlaceInfo();
+  // late String description = '';
+  // late String imagePath = '';
 
   void pickTarget(int index) {
     targetIndex = index;
@@ -32,7 +31,9 @@ class BattlePlaceHandler extends ChangeNotifier {
   }
 
   Future stopConnection() async {
-    await hubConnection.stop();
+    clearMonsters();
+    placeInfo = PlaceInfo();
+    hubConnection.stop();
     print(
         'Monster handler: Состояние подключения - ${hubConnection.state.toString()}');
   }
@@ -59,10 +60,9 @@ class BattlePlaceHandler extends ChangeNotifier {
     }
   }
 
-  void _updateDescription(List<dynamic>? args) {
+  void _updateDescription(Map<String, dynamic>? args) {
     if (args != null) {
-      imagePath = args[0];
-      description = args[1];
+      placeInfo = PlaceInfo.fromJson(args);
       notifyListeners();
     }
   }
@@ -82,7 +82,6 @@ class BattlePlaceHandler extends ChangeNotifier {
     final name = GetIt.I<UserStorage>().character.name;
     hubConnection = HubConnectionBuilder().withUrl(serverUrl).build();
 
-    //hubConnection.on('UpdateDescription', _updateDescription);
     hubConnection.on('UpdateListMonsters', _updateListMonsters);
     hubConnection.on('UpdateListUsers', _updateListUsers);
     hubConnection.on('ResetTarget', ((args) => targetIndex = -1));

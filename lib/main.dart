@@ -1,14 +1,13 @@
 import 'package:client/bloc/action_screen/action_screen_bloc.dart';
-import 'package:client/bloc/stats/stats_bloc.dart';
 import 'package:client/pages/ModalPages/character_page.dart';
 import 'package:client/services/local/di_container.dart';
-import 'package:client/pages/default_page.dart';
-import 'package:client/pages/login_page.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+import 'package:client/pages/ModalPages/reg_page.dart';
+import 'package:client/bloc/stats/stats_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:client/pages/default_page.dart';
+import 'package:client/pages/auth_page.dart';
+import 'package:flutter/material.dart';
 
 void main() {
   setupGetIt();
@@ -33,9 +32,10 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         routes: {
-          '/': (context) => const LoginPage(),
+          '/': (context) => AuthPage(),
           '/main': (context) => const DefaultPage(),
-          '/modalChar': (context) => CharacterModalPage()
+          '/modalReg': (context) => RegModalPage(),
+          '/modalChar': (context) => const CharacterModalPage()
         },
       ),
     );
