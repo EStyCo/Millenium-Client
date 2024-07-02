@@ -12,6 +12,7 @@ class BattlePlaceHandler extends ChangeNotifier {
   late String serverUrl;
   late HubConnection hubConnection = HubConnectionBuilder().withUrl('').build();
   late int targetIndex = -1;
+  late String targetName = '';
   late List<Monster> listMonster = [];
   late List<ActiveUser> listUsers = [];
   late List<String> routes = [];
@@ -20,8 +21,15 @@ class BattlePlaceHandler extends ChangeNotifier {
   // late String description = '';
   // late String imagePath = '';
 
-  void pickTarget(int index) {
+  void pickMonster(int index) {
+    targetName = '';
     targetIndex = index;
+    notifyListeners();
+  }
+
+  void pickUser(String name) {
+    targetIndex = -1;
+    targetName = name;
     notifyListeners();
   }
 
@@ -32,6 +40,7 @@ class BattlePlaceHandler extends ChangeNotifier {
 
   Future stopConnection() async {
     clearMonsters();
+    targetName = '';
     placeInfo = PlaceInfo();
     hubConnection.stop();
     print(

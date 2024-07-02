@@ -24,7 +24,7 @@ class GladeScreenEvent extends ActionScreenEvent {
   @override
   String get place => 'glade';
   @override
-  ActionScreenState get state => const GladeScreenState();
+  ActionScreenState get state => const BattleScreenState();
 }
 
 class DarkWoodScreenEvent extends ActionScreenEvent {
@@ -33,13 +33,22 @@ class DarkWoodScreenEvent extends ActionScreenEvent {
   @override
   String get place => 'darkwood';
   @override
-  ActionScreenState get state => const GladeScreenState();
+  ActionScreenState get state => const BattleScreenState();
+}
+
+class PizzaLandScreenEvent extends ActionScreenEvent {
+  @override
+  String get name => 'В пиццерию';
+  @override
+  String get place => 'pizzaland';
+  @override
+  ActionScreenState get state => const BattleScreenState();
 }
 
 //СПЕЦИАЛЬНЫЕ ЛОКАЦИИ
-abstract class SpecialScreenEvent extends ActionEvent {}
+//abstract class SpecialScreenEvent extends ActionScreenEvent {}
 
-class MasturbationScreenEvent extends SpecialScreenEvent {
+class MasturbationScreenEvent extends ActionScreenEvent {
   @override
   String get name => 'В дрочильню';
   @override

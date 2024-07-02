@@ -1,6 +1,5 @@
 import 'package:client/services/handlers/battle_place_handler.dart';
 import 'package:client/widgets/active_users_list_widget.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:client/widgets/spell_list_widget.dart';
 import 'package:client/widgets/health_bar_widget.dart';
 import 'package:client/widgets/buff_bar_widget.dart';
@@ -9,20 +8,13 @@ import 'package:client/widgets/routes_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-class SpecialPlaceScreen extends ConsumerWidget {
+class SpecialPlaceScreen extends StatelessWidget {
   SpecialPlaceScreen({super.key});
 
   final handler = GetIt.I<BattlePlaceHandler>();
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-
-    final provider = ref.watch(
-      ChangeNotifierProvider<BattlePlaceHandler>(
-        (ref) => handler,
-      ),
-    );
-
+  Widget build(BuildContext context) {
     return SizedBox(
       child: Column(
         children: [
@@ -56,7 +48,7 @@ class SpecialPlaceScreen extends ConsumerWidget {
                           heightFactor: 200 / (350 + 50),
                           child: Image.asset(
                             //provider.imagePath,
-                            'assets/images/locations/${provider.placeInfo.imagePath}',
+                            'assets/images/locations/masturbation.png',
                             fit: BoxFit.cover,
                             width: double.infinity,
                           ),
@@ -70,13 +62,13 @@ class SpecialPlaceScreen extends ConsumerWidget {
                       borderRadius: BorderRadius.circular(15),
                       child: Container(
                         color: Colors.black12,
-                        child: Center(
+                        child: const Center(
                           child: Padding(
                             padding: const EdgeInsets.all(15),
                             child: Text(
-                              provider.placeInfo.description,
+                              'Добро пожаловать в дрочильню!\nНаслаждайтесь..',
                               textAlign: TextAlign.center,
-                              style: const TextStyle(color: Colors.black),
+                              style: TextStyle(color: Colors.black),
                             ),
                           ),
                         ),
@@ -86,15 +78,14 @@ class SpecialPlaceScreen extends ConsumerWidget {
                   const MyDivider(),
                   RoutesWidget(),
                   const MyDivider(),
-                  const ExpansionTile(
-                    title: Text('Игроки'),
+                  ExpansionTile(
+                    title: const Text('Игроки'),
                     backgroundColor: Colors.white,
                     collapsedBackgroundColor: Colors.white,
-                    shape:
-                        RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero),
                     children: [ActiveUsersListWidget()],
                   ),
-                  const MyDivider(),
                   const SizedBox(height: 150),
                 ],
               ),

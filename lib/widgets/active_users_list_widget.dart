@@ -3,55 +3,101 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
 
-class ActiveUsersListWidget extends ConsumerStatefulWidget {
-  const ActiveUsersListWidget({super.key});
+class ActiveUsersListWidget extends ConsumerWidget {
+  ActiveUsersListWidget({super.key});
 
-  @override
-  ConsumerState<ActiveUsersListWidget> createState() {
-    return ActiveUsersListWidgetState();
-  }
-}
-
-class ActiveUsersListWidgetState extends ConsumerState<ActiveUsersListWidget> {
   final handler = GetIt.I<BattlePlaceHandler>();
 
   @override
-  Widget build(BuildContext context) {
-    final provider = ref.watch(
-      ChangeNotifierProvider<BattlePlaceHandler>(
-        (ref) => handler,
-      ),
-    );
+  Widget build(BuildContext context, WidgetRef ref) {
+    final provider =
+        ref.watch(ChangeNotifierProvider<BattlePlaceHandler>((ref) => handler));
 
-    Color changeColor(int index) {
-      if (provider.listMonster[index].id == provider.targetIndex) {
+    Color _changeColor(int index) {
+      if (provider.listUsers[index].name == provider.targetName) {
         return Colors.black12;
       } else {
         return Colors.white;
       }
     }
 
-    if (provider.listMonster.isEmpty) {
-      return const CircularProgressIndicator();
+    if (provider.listUsers.isEmpty) {
+      return const Text('Загрузка..');
     } else {
       return Column(
         children: List.generate(
           provider.listUsers.length,
-          (index) => ListTile(
-            contentPadding: EdgeInsets.zero,
-            tileColor: changeColor(index),
-            leading: InkWell(
-              onTap: () {},
-              child: CircleAvatar(
-                radius: 25,
-                backgroundColor: Colors.black12,
-                child: Image.asset('assets/images/warrior_image.jpg'),
+          (index) {
+            return Padding(
+              padding: const EdgeInsets.only(left: 5, right: 5),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: AnimatedContainer(
+                  color: _changeColor(index),
+                  duration: const Duration(milliseconds: 250),
+                  curve: Curves.easeOutQuad,
+                  child: ListTile(
+                    splashColor: Colors.transparent,
+                    leading: InkWell(
+                      onTap: () {},
+                      child: CircleAvatar(
+                        radius: 25,
+                        backgroundColor: Colors.black12,
+                        child: Image.asset('assets/images/warrior_image.jpg'),
+                      ),
+                    ),
+                    title: Text(
+                        '${provider.listUsers[index].name} [${provider.listUsers[index].level} lvl]'),
+                    subtitle: provider.placeInfo.canAttackUser
+                        ? Row(
+                            children: [
+                              Text(
+                                '${provider.listUsers[index].currentHP}/${provider.listUsers[index].maxHP}',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              for (var item in provider.listUsers[index].states)
+                                CircleAvatar(
+                                  radius: 15,
+                                  backgroundImage: AssetImage(
+                                      'assets/images/spells/${item.imagePath}'),
+                                ),
+                            ],
+                          )
+                        : null,
+                    onTap: () {
+                      if (provider.placeInfo.canAttackUser) {
+                        provider.pickUser(provider.listUsers[index].name);
+                      }
+                    },
+                  ),
+                ),
               ),
-            ),
-            title: Text(
-              '[${provider.listUsers[index].level}] ${provider.listUsers[index].name}',
-            ),
-          ),
+            );
+          },
+          // ListTile(
+          //   contentPadding: EdgeInsets.zero,
+          //   tileColor: changeColor(index),
+          //   leading: InkWell(
+          //     onTap: () {},
+          //     child: CircleAvatar(
+          //       radius: 25,
+          //       backgroundColor: Colors.black12,
+          //       child: Image.asset('assets/images/warrior_image.jpg'),
+          //     ),
+          //   ),
+          //   title: Text(
+          //     '[${provider.listUsers[index].level}] ${provider.listUsers[index].name}',
+          //   ),
+          //   onTap: () {
+          //     provider.pickUser(provider.listUsers[index].name);
+          //   },
+          // ),
         ),
       );
     }

@@ -76,7 +76,7 @@ class SpellListWidgetState extends ConsumerState<SpellListWidget> {
                     onPressed: !provider.spellList[index].isReady
                         ? null
                         : () {
-                            provider.attackMonster(
+                            provider.attack(
                                 provider.spellList[index].spellType);
                           },
                     child: ListTile(

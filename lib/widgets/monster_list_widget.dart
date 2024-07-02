@@ -18,14 +18,14 @@ class MonsterListWidget extends ConsumerWidget {
       ),
     );
 
-    Color changeColor(int index) {
+    Color _changeColor(int index) {
       if (provider.listMonster[index].id == provider.targetIndex) {
         return Colors.black12;
       }
       return Colors.white;
     }
 
-    Duration setDuration(int index) {
+    Duration _setDuration(int index) {
       if (provider.listMonster[index].id == provider.targetIndex) {
         return const Duration(milliseconds: 250);
       }
@@ -46,8 +46,8 @@ class MonsterListWidget extends ConsumerWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: AnimatedContainer(
-                  color: changeColor(index),
-                  duration: setDuration(index),
+                  color: _changeColor(index),
+                  duration: _setDuration(index),
                   curve: Curves.easeOutQuad,
                   child: ListTile(
                     splashColor: Colors.transparent,
@@ -93,7 +93,7 @@ class MonsterListWidget extends ConsumerWidget {
                       ],
                     ),
                     onTap: () {
-                      provider.pickTarget(provider.listMonster[index].id);
+                      provider.pickMonster(provider.listMonster[index].id);
                     },
                   ),
                 ),

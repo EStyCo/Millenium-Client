@@ -30,7 +30,7 @@ class RoutesWidget extends ConsumerWidget {
       collapsedBackgroundColor: Colors.white,
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       children: [
-        if (provider.listMonster.isEmpty)
+        if (provider.routes.isEmpty)
           const Text('Loading..')
         else
           Column(

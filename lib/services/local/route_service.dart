@@ -1,12 +1,12 @@
 import 'package:client/bloc/action_screen/action_screen_event.dart';
 import 'package:client/models/Request/travel_request.dart';
+import 'package:client/pages/Screens/action/special_place_screen.dart';
 import 'package:client/services/local/user_storage.dart';
 import 'package:client/services/web/travel_service.dart';
 import 'package:get_it/get_it.dart';
 
 class RouteService {
   final storage = GetIt.I<UserStorage>();
-
 
   Future<bool> goNewPlace(ActionEvent event) async {
     var response = await TravelService().goNewPlace(
@@ -28,13 +28,17 @@ class RouteService {
         return GladeScreenEvent();
       case 'darkwood':
         return DarkWoodScreenEvent();
+      case 'pizzaland':
+        return PizzaLandScreenEvent();
+      case 'masturbation':
+        return MasturbationScreenEvent();
       case 'spellMaster':
         return MentorScreenEvent();
       default:
         return TownScreenEvent();
     }
   }
-  
+
   // Future<ActionEvent> getEventPlace() async {
   //   var response = await TravelService()
   //       .getPlace(NameRequest(name: storage.character.name));

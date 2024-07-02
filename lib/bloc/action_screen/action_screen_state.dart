@@ -41,8 +41,8 @@ class TownScreenState extends ActionScreenState {
   }
 }
 
-class GladeScreenState extends ActionScreenState {
-  const GladeScreenState({super.key});
+class BattleScreenState extends ActionScreenState {
+  const BattleScreenState({super.key});
   @override
   Widget build(BuildContext context) {
     return BattlePlaceScreen();

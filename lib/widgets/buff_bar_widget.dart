@@ -21,13 +21,31 @@ class BuffBarWidget extends ConsumerWidget {
           (index) {
             return Padding(
               padding: const EdgeInsets.only(left: 5, right: 5, bottom: 5),
-              child: ClipOval(
-                child: Image.asset(
-                  'assets/images/spells/${provider.stateslist[index].imagePath}',
-                  width: 50,
-                  height: 50,
-                  fit: BoxFit.cover,
-                ),
+              child: Stack(
+                children: [
+                  ClipOval(
+                    child: Image.asset(
+                      'assets/images/spells/${provider.stateslist[index].imagePath}',
+                      width: 50,
+                      height: 50,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Positioned(
+                    right: 0,
+                    bottom: 0,
+                    child: Container(
+                      padding: const EdgeInsets.all(2.0),
+                      child: Text(
+                        '${provider.stateslist[index].time}',
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             );
           },

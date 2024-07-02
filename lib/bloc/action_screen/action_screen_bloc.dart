@@ -18,7 +18,13 @@ class ActionScreenBloc extends Bloc<ActionEvent, ActionScreenState> {
         emit(event.state);
       }
     });
-
+    // on<SpecialScreenEvent>((event, emit) async {
+    //   if (await RouteService().goNewPlace(event)) {
+    //     await handler.stopConnection();
+    //     await handler.initializeSignalR(event.place);
+    //     emit(event.state);
+    //   }
+    // });
     on<ActionModalScreenEvent>((event, emit) async {
       emit(event.state);
     });

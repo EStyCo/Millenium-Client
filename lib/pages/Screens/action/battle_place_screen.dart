@@ -84,12 +84,12 @@ class BattlePlaceScreen extends ConsumerWidget {
                   const MyDivider(),
                   RoutesWidget(),
                   const MyDivider(),
-                  const ExpansionTile(
-                    title: Text('Игроки'),
+                  ExpansionTile(
+                    title: const Text('Игроки'),
                     backgroundColor: Colors.white,
                     collapsedBackgroundColor: Colors.white,
                     shape:
-                        RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+                        const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
                     children: [ActiveUsersListWidget()],
                   ),
                   const MyDivider(),

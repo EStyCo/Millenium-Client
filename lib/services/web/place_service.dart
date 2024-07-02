@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:client/models/Request/attack_monster.dart';
 import 'package:client/models/Place/place.dart';
+import 'package:client/models/Request/attack_user.dart';
 import 'package:client/models/Response/api_response.dart';
 import 'package:client/models/Utilities/base_url.dart';
 import 'package:client/services/web/base_service.dart';
@@ -24,7 +25,7 @@ class PlaceService extends BaseService {
     ));
   }
 
-    Future<APIResponse> attackUser(AttackMonster dto) {
+    Future<APIResponse> attackUser(AttackUser dto) {
     return sendAsync(APIRequest(
       apiType: ApiType.POST,
       data: jsonEncode(dto.toJson()),

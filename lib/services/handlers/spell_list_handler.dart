@@ -1,3 +1,4 @@
+import 'package:client/models/Request/attack_user.dart';
 import 'package:client/services/handlers/battle_place_handler.dart';
 import 'package:client/services/local/user_storage.dart';
 import 'package:client/models/Request/attack_monster.dart';
@@ -10,7 +11,7 @@ import 'package:get_it/get_it.dart';
 import 'dart:async';
 
 class SpellListHandler extends ChangeNotifier {
-  final placeHandler = GetIt.I<BattlePlaceHandler>();
+  final place = GetIt.I<BattlePlaceHandler>();
   final storage = GetIt.I<UserStorage>();
   final List<Spell> _spellList = [];
   List<Spell> get spellList => _spellList;
@@ -32,18 +33,36 @@ class SpellListHandler extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future attackMonster(int skillType) async {
+  void attack(int skillType) {
     Spell? spell =
         spellList.firstWhere((spell) => spell.spellType == skillType);
 
     if (spell.isReady) {
       spell.isReady = false;
+      if (place.targetIndex == -1)
+        _attackUser(skillType);
+      else
+        _attackMonster(skillType);
+    }
+  }
 
-      await PlaceService().attackMonster(AttackMonster(
-          idMonster: placeHandler.targetIndex,
+  void _attackMonster(int skillType) async {
+    await PlaceService().attackMonster(
+      AttackMonster(
+          idMonster: place.targetIndex,
           type: skillType,
           name: storage.character.name,
-          place: storage.character.place));
-    }
+          place: storage.character.place),
+    );
+  }
+
+  void _attackUser(int skillType) async {
+    await PlaceService().attackUser(
+      AttackUser(
+          type: skillType,
+          nameUser: storage.character.name,
+          nameTarget: place.targetName,
+          place: storage.character.place),
+    );
   }
 }
