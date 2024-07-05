@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
 class AuthPage extends ConsumerWidget {
-  AuthPage({super.key});
+  AuthPage({super.key}) {
+    GetIt.I<AuthHandler>().checkVersion();
+  }
 
   final handler = GetIt.I<AuthHandler>();
 
@@ -19,44 +21,100 @@ class AuthPage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 60, right: 60),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(provider.message),
-            TextField(
-              controller: provider.emailController,
-              decoration: const InputDecoration(
-                labelText: 'email',
+      body: Column(
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(bottom: 10),
+            child: Text(
+              'Millenium',
+              style: TextStyle(fontSize: 25),
+            ),
+          ),
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 800),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 10, right: 10),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(25),
+                child: Align(
+                  alignment: Alignment.center,
+                  heightFactor: 250 / (400),
+                  child: Image.asset(
+                    'assets/images/home_page/millenium.jpg',
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                  ),
+                ),
               ),
             ),
-            const SizedBox(height: 25),
-            TextField(
-              controller: provider.passwordController,
-              obscureText: true,
-              decoration: const InputDecoration(
-                labelText: 'password',
+          ),
+          if (provider.isCorrectVersion)
+            Padding(
+              padding: const EdgeInsets.only(left: 60, right: 60),
+              child: Column(
+                children: [
+                  Text(provider.message),
+                  TextField(
+                    controller: provider.emailController,
+                    decoration: const InputDecoration(
+                      labelText: 'email',
+                    ),
+                  ),
+                  const SizedBox(height: 25),
+                  TextField(
+                    controller: provider.passwordController,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      labelText: 'password',
+                    ),
+                  ),
+                  const SizedBox(height: 25),
+                  if (provider.isloading)
+                    const CircularProgressIndicator()
+                  else
+                    ElevatedButton(
+                      onPressed: () {
+                        provider.Login(context);
+                      },
+                      child: const Text("Login"),
+                    ),
+                  const SwitchPlatformWidget(),
+                  const SizedBox(height: 30),
+                  ElevatedButton(
+                    onPressed: () => Navigator.pushNamed(context, '/modalReg'),
+                    child: const Text('регистрация'),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: Text(
+                      'v.${provider.buildVersion}',
+                      style: const TextStyle(fontSize: 10),
+                    ),
+                  ),
+                ],
               ),
-            ),
-            const SizedBox(height: 25),
-            if (provider.isloading)
-              const CircularProgressIndicator()
-            else
-              ElevatedButton(
-                onPressed: () {
-                  provider.Login(context);
-                },
-                child: const Text("Login"),
-              ),
-            const SwitchPlatformWidget(),
-            const SizedBox(height: 50),
-            ElevatedButton(
-              onPressed: () => Navigator.pushNamed(context, '/modalReg'),
-              child: const Text('регистрация'),
             )
-          ],
-        ),
+          else
+            SizedBox(
+              height: 250,
+              child: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      'Не корректная версия приложения!\nСкачайте новую версию',
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 10),
+                    ElevatedButton(
+                      onPressed: () => provider.downloadNewVersion(),
+                      child: const Text('Перейти'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+        ],
       ),
     );
   }

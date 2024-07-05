@@ -5,8 +5,7 @@ import 'dart:async';
 import 'dart:ui';
 
 class SpellListWidget extends ConsumerStatefulWidget {
-  const SpellListWidget({super.key});
-  //final BattlePlaceHandler handler = GetIt.I<BattlePlaceHandler>();
+  const SpellListWidget({Key? key}) : super(key: key);
 
   @override
   SpellListWidgetState createState() => SpellListWidgetState();
@@ -14,10 +13,9 @@ class SpellListWidget extends ConsumerStatefulWidget {
 
 class SpellListWidgetState extends ConsumerState<SpellListWidget> {
   late Timer timer;
+
   final spellListProvider = ChangeNotifierProvider<SpellListHandler>(
-    (ref) {
-      return SpellListHandler();
-    },
+    (ref) => SpellListHandler(),
   );
 
   @override
@@ -43,6 +41,29 @@ class SpellListWidgetState extends ConsumerState<SpellListWidget> {
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(spellListProvider);
+
+    String _textSpell(int index) {
+      if (provider.spellList[index].restSeconds > 0) {
+        return provider.spellList[index].restSeconds.toString();
+      } else if (!provider.canAttack) {
+        return provider.globalRestSeconds.toString();
+      } else {
+        return '';
+      }
+    }
+
+    Widget _filter(int index) {
+      return BackdropFilter(
+        filter: ImageFilter.blur(
+          sigmaX: provider.spellList[index].isReady ? 0.0 : 5.0,
+          sigmaY: provider.spellList[index].isReady ? 0.0 : 5.0,
+        ),
+        child: Container(
+          color: Colors.transparent,
+        ),
+      );
+    }
+
     if (provider.spellList.isEmpty) {
       return const CircularProgressIndicator();
     } else {
@@ -54,47 +75,48 @@ class SpellListWidgetState extends ConsumerState<SpellListWidget> {
           scrollDirection: Axis.horizontal,
           itemCount: provider.spellList.length,
           itemBuilder: (context, index) {
-            double padding = 5;
-            if (index == 0 || index == provider.spellList.length) {
-              padding = 0;
-            }
-            return ClipRRect(
-              borderRadius: BorderRadius.circular(25),
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            double padding =
+                (index == 0 || index == provider.spellList.length - 1) ? 0 : 5;
+            return InkWell(
+              onTap: !provider.spellList[index].isReady || !provider.canAttack
+                  ? null
+                  : () {
+                      provider.attack(provider.spellList[index].spellType);
+                    },
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(35),
                 child: Container(
                   margin: EdgeInsets.only(left: padding, right: padding),
-                  width: 205,
+                  width: 150,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25),
-                      color: Colors.black12),
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                            Colors.transparent),
-                        elevation: MaterialStateProperty.all<double>(0)),
-                    onPressed: !provider.spellList[index].isReady
-                        ? null
-                        : () {
-                            provider.attack(
-                                provider.spellList[index].spellType);
-                          },
-                    child: ListTile(
-                      contentPadding: EdgeInsets.zero,
-                      leading: CircleAvatar(
-                        radius: 25,
-                        backgroundImage: AssetImage(
-                            'assets/images/spells/${provider.spellList[index].imagePath}'),
+                    borderRadius: BorderRadius.circular(35),
+                    color: Colors.black12,
+                  ),
+                  child: Row(
+                    children: [
+                      Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          CircleAvatar(
+                            radius: 25,
+                            backgroundImage: AssetImage(
+                                'assets/images/spells/${provider.spellList[index].imagePath}'),
+                          ),
+                          Positioned.fill(child: _filter(index)),
+                          Text(
+                            _textSpell(index),
+                            style: const TextStyle(
+                                fontSize: 25, color: Colors.white),
+                          ),
+                        ],
                       ),
-                      title: Text(
+                      const SizedBox(width: 5),
+                      Text(
                         provider.spellList[index].name,
                         style: const TextStyle(fontSize: 13),
                         textAlign: TextAlign.center,
                       ),
-                      trailing: Text(
-                          provider.spellList[index].restSeconds.toString(),
-                          style: const TextStyle(fontSize: 15)),
-                    ),
+                    ],
                   ),
                 ),
               ),

@@ -12,6 +12,8 @@ class MentorSpellListResponse {
         .toList();
 
     return MentorSpellListResponse(
-        freePoints: json['freePoints'] as int, spellList: spellList);
+      freePoints: json['freePoints'] as int,
+      spellList: spellList,
+    );
   }
 }

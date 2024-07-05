@@ -10,6 +10,7 @@ import 'package:client/pages/auth_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  //packagein
   setupGetIt();
   runApp(const ProviderScope(child: MyApp()));
 }
@@ -27,8 +28,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          colorScheme:
-              ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 60, 57, 241)),
+          colorScheme: ColorScheme.fromSeed(
+              seedColor: const Color.fromARGB(255, 60, 57, 241)),
           useMaterial3: true,
         ),
         routes: {
