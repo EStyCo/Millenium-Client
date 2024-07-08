@@ -1,6 +1,9 @@
+import 'package:client/bloc/details_monster/details_monster_bloc.dart';
+import 'package:client/bloc/details_monster/details_monster_state.dart';
 import 'package:client/services/handlers/battle_place_handler.dart';
 import 'package:client/services/local/user_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
 
@@ -32,6 +35,20 @@ class MonsterListWidget extends ConsumerWidget {
       return Duration.zero;
     }
 
+    void _showDetails(BuildContext context, int index) {
+      showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return BlocBuilder<DetailsMonsterBloc, DetailsMonsterState>(
+            builder: (context, state) {
+              return state;
+            },
+          );
+        },
+      );
+    }
+
     if (provider.listMonster.isEmpty) {
       return const CircularProgressIndicator();
     } else {
@@ -39,8 +56,6 @@ class MonsterListWidget extends ConsumerWidget {
         children: List.generate(
           provider.listMonster.length,
           (index) {
-            //String imagePath =
-            //'assets/images/monsters/${provider.listMonster[index].imagePath}';
             return Padding(
               padding: const EdgeInsets.only(left: 5, right: 5),
               child: ClipRRect(
@@ -52,12 +67,16 @@ class MonsterListWidget extends ConsumerWidget {
                   child: ListTile(
                     splashColor: Colors.transparent,
                     leading: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        _showDetails(context, index);
+                        BlocProvider.of<DetailsMonsterBloc>(context).add(index);
+                      },
                       child: CircleAvatar(
-                          radius: 25,
-                          backgroundColor: Colors.black12,
-                          child: Image.asset(
-                              'assets/images/monsters/${provider.listMonster[index].imagePath}')),
+                        radius: 25,
+                        backgroundColor: Colors.black12,
+                        child: Image.asset(
+                            'assets/images/monsters/${provider.listMonster[index].imagePath}'),
+                      ),
                     ),
                     title: Row(
                       children: [

@@ -1,14 +1,19 @@
 import 'package:client/models/Place/connect_to_place_hub.dart';
+import 'package:client/models/Place/details_monster.dart';
+import 'package:client/models/Place/details_monster_request.dart';
 import 'package:client/models/Place/place_info.dart';
 import 'package:client/services/local/user_storage.dart';
 import 'package:client/models/Utilities/base_url.dart';
 import 'package:client/models/Place/active_user.dart';
 import 'package:client/models/Place/monster.dart';
+import 'package:client/services/web/place_service.dart';
 import 'package:signalr_core/signalr_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
 class BattlePlaceHandler extends ChangeNotifier {
+  final storage = GetIt.I<UserStorage>();
+
   late String serverUrl;
   late HubConnection hubConnection = HubConnectionBuilder().withUrl('').build();
   late int targetIndex = -1;
@@ -18,8 +23,6 @@ class BattlePlaceHandler extends ChangeNotifier {
   late List<String> routes = [];
   late bool isExpanded = false;
   late PlaceInfo placeInfo = PlaceInfo();
-  // late String description = '';
-  // late String imagePath = '';
 
   void pickMonster(int index) {
     targetName = '';
@@ -66,6 +69,19 @@ class BattlePlaceHandler extends ChangeNotifier {
         listUsers.add(user);
       }
       notifyListeners();
+    }
+  }
+
+  Future<DetailsMonster?> getDetailsMonster(int index) async {
+    final response = await PlaceService().getDetailsMonster(
+      DetailsMonsterRequest(
+          place: storage.character.place, id: listMonster[index].id),
+    );
+
+    if (response.isSuccess) {
+      return DetailsMonster.fromJson(response.result!);
+    } else {
+      return null;
     }
   }
 

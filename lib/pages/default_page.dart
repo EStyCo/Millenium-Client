@@ -62,10 +62,10 @@ class DefaultPageState extends State<DefaultPage> {
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 0, sigmaY: 5),
           child: Container(
-            color: Colors.white.withOpacity(0.3), // Прозрачный цвет контейнера
+            color: Colors.white.withOpacity(0.3),
             child: BottomNavigationBar(
               selectedItemColor: Colors.black,
-              backgroundColor: Colors.transparent, // Прозрачный фон
+              backgroundColor: Colors.transparent, 
               currentIndex: _selectedIndex,
               onTap: _onItemTapped,
               items: const [

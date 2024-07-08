@@ -1,7 +1,9 @@
+import 'package:client/bloc/details_monster/details_monster_bloc.dart';
 import 'package:client/services/handlers/battle_place_handler.dart';
 import 'package:client/widgets/active_users_list_widget.dart';
 import 'package:client/widgets/monster_list_widget.dart';
 import 'package:client/widgets/routes_widget.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:client/widgets/spell_list_widget.dart';
 import 'package:client/widgets/health_bar_widget.dart';
@@ -88,8 +90,8 @@ class BattlePlaceScreen extends ConsumerWidget {
                     title: const Text('Игроки'),
                     backgroundColor: Colors.white,
                     collapsedBackgroundColor: Colors.white,
-                    shape:
-                        const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero),
                     children: [ActiveUsersListWidget()],
                   ),
                   const MyDivider(),
