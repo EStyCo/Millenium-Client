@@ -1,6 +1,9 @@
 import 'package:client/bloc/action_screen/action_screen_bloc.dart';
 import 'package:client/bloc/details_monster/details_monster_bloc.dart';
+import 'package:client/bloc/equipment/equipment_bloc.dart';
+import 'package:client/bloc/inventory/inventory_bloc.dart';
 import 'package:client/pages/ModalPages/character_page.dart';
+import 'package:client/pages/ModalPages/inventory_page.dart';
 import 'package:client/services/local/di_container.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:client/pages/ModalPages/reg_page.dart';
@@ -25,6 +28,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => ActionScreenBloc()),
         BlocProvider(create: (context) => StatsBloc()),
         BlocProvider(create: (context) => DetailsMonsterBloc()),
+        BlocProvider(create: (context) => InventoryBloc()),
+        BlocProvider(create: (context) => EquipmentBloc()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -37,7 +42,8 @@ class MyApp extends StatelessWidget {
           '/': (context) => AuthPage(),
           '/main': (context) => const DefaultPage(),
           '/modalReg': (context) => RegModalPage(),
-          '/modalChar': (context) => const CharacterModalPage()
+          '/modalChar': (context) => const CharacterModalPage(),
+          '/modalInv': (context) => const InventoryModalPage()
         },
       ),
     );

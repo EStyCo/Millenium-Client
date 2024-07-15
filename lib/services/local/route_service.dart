@@ -1,6 +1,5 @@
 import 'package:client/bloc/action_screen/action_screen_event.dart';
 import 'package:client/models/Request/travel_request.dart';
-import 'package:client/pages/Screens/action/special_place_screen.dart';
 import 'package:client/services/local/user_storage.dart';
 import 'package:client/services/web/travel_service.dart';
 import 'package:get_it/get_it.dart';

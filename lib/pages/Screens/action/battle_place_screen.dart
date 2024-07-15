@@ -1,9 +1,10 @@
-import 'package:client/bloc/details_monster/details_monster_bloc.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:client/models/Utilities/base_url.dart';
 import 'package:client/services/handlers/battle_place_handler.dart';
 import 'package:client/widgets/active_users_list_widget.dart';
 import 'package:client/widgets/monster_list_widget.dart';
 import 'package:client/widgets/routes_widget.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:client/widgets/spell_list_widget.dart';
 import 'package:client/widgets/health_bar_widget.dart';
@@ -24,6 +25,19 @@ class BattlePlaceScreen extends ConsumerWidget {
         (ref) => handler,
       ),
     );
+
+    Widget? _getImage(BuildContext context) {
+      if (provider.placeInfo.imagePath.isEmpty) {
+        return null;
+      } else {
+        return CachedNetworkImage(
+          imageUrl:
+              '${BaseUrl.Get()}/imageProvider/${provider.placeInfo.imagePath}',
+          fit: BoxFit.cover,
+          width: double.infinity,
+        );
+      }
+    }
 
     return SizedBox(
       child: Column(
@@ -48,7 +62,8 @@ class BattlePlaceScreen extends ConsumerWidget {
               child: Column(
                 children: [
                   ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 800),
+                    constraints: const BoxConstraints(
+                        minHeight: 200, minWidth: 200, maxWidth: 800),
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
                       child: ClipRRect(
@@ -56,11 +71,7 @@ class BattlePlaceScreen extends ConsumerWidget {
                         child: Align(
                             alignment: Alignment.center,
                             heightFactor: 200 / (350 + 50),
-                            child: Image.asset(
-                              'assets/images/locations/${provider.placeInfo.imagePath}',
-                              fit: BoxFit.cover,
-                              width: double.infinity,
-                            )),
+                            child: _getImage(context)),
                       ),
                     ),
                   ),

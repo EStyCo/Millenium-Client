@@ -12,6 +12,7 @@ class MentorListHandler extends ChangeNotifier {
     getSpellList();
   }
   int freePoints = 0;
+  int totalPoints = 0;
   late List<MentorSpell> spellList = [];
   final mentorService = MentorService();
   final storage = GetIt.I<UserStorage>();
@@ -25,6 +26,7 @@ class MentorListHandler extends ChangeNotifier {
       final mentorSpellListResponse =
           MentorSpellListResponse.fromJson(response.result!);
       freePoints = mentorSpellListResponse.freePoints;
+      totalPoints = mentorSpellListResponse.totalPoints;
       spellList = mentorSpellListResponse.spellList;
       notifyListeners();
     }

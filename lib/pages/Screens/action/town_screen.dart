@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:client/bloc/action_screen/action_screen_bloc.dart';
 import 'package:client/bloc/action_screen/action_screen_event.dart';
+import 'package:client/models/Utilities/base_url.dart';
 import 'package:client/widgets/divider_widget.dart';
 import 'package:client/widgets/health_bar_widget.dart';
 import 'package:flutter/material.dart';
@@ -30,8 +32,11 @@ class TownScreen extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.center,
                   heightFactor: 150 / (250 + 70),
-                  child: Image.asset(
-                    'assets/images/locations/town.jpeg',
+                  child: CachedNetworkImage(
+                    imageUrl:
+                        '${BaseUrl.Get()}/imageProvider/locations/town.jpeg',
+                    // Image.asset(
+                    //   'assets/images/locations/town.jpeg',
                     fit: BoxFit.cover,
                     width: double.infinity,
                   ),

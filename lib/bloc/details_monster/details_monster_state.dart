@@ -1,5 +1,7 @@
 import 'dart:ffi';
 
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:client/models/Utilities/base_url.dart';
 import 'package:client/pages/Screens/action/town_screen.dart';
 import 'package:client/models/Place/details_monster.dart';
 import 'package:client/services/local/user_storage.dart';
@@ -54,11 +56,13 @@ class LoadedDetailsState extends DetailsMonsterState {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Align(
-                    alignment: Alignment.center,
-                    child: Image.asset(
-                      'assets/images/monsters/${details.imagePath}',
-                      fit: BoxFit.scaleDown,
-                    )),
+                  alignment: Alignment.center,
+                  child: CachedNetworkImage(
+                    imageUrl:
+                        '${BaseUrl.Get()}/imageProvider/${details.imagePath}',
+                    fit: BoxFit.scaleDown,
+                  ),
+                ),
               ),
             ),
           ),
@@ -91,10 +95,20 @@ class LoadedDetailsState extends DetailsMonsterState {
                 Row(
                   children: [
                     CircleAvatar(
-                      radius: 15,
-                      backgroundImage:
-                          AssetImage('assets/images/spells/${item.imagePath}'),
+                      radius: 20,
+                      child: ClipOval(
+                        child: CachedNetworkImage(
+                          imageUrl:
+                              '${BaseUrl.Get()}/imageProvider/${item.imagePath}',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
+                    // CircleAvatar(
+                    //   radius: 15,
+                    //   backgroundImage:
+                    //       AssetImage('assets/images/spells/${item.imagePath}'),
+                    // ),
                     const SizedBox(width: 10),
                     Expanded(
                       child: Text(

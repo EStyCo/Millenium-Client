@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:client/models/Utilities/base_url.dart';
 import 'package:client/services/handlers/spell_list_handler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
@@ -99,8 +101,13 @@ class SpellListWidgetState extends ConsumerState<SpellListWidget> {
                         children: [
                           CircleAvatar(
                             radius: 25,
-                            backgroundImage: AssetImage(
-                                'assets/images/spells/${provider.spellList[index].imagePath}'),
+                            child: ClipOval(
+                              child: CachedNetworkImage(
+                                imageUrl:
+                                    '${BaseUrl.Get()}/imageProvider/${provider.spellList[index].imagePath}',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
                           Positioned.fill(child: _filter(index)),
                           Text(

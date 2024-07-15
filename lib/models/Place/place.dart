@@ -1,11 +1,16 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+class Place {
+  String place;
+  Place({required this.place});
 
-part 'place.freezed.dart';
-part 'place.g.dart';
+  factory Place.fromJson(Map<String, dynamic> json) {
+    return Place(
+      place: json['place'] as String,
+    );
+  }
 
-@freezed
-class Place with _$Place {
-  const factory Place({required String place}) = _Place;
-
-  factory Place.fromJson(Map<String, dynamic> json) => _$PlaceFromJson(json);
+  Map<String, dynamic> toJson() {
+    return {
+      'place': place,
+    };
+  }
 }

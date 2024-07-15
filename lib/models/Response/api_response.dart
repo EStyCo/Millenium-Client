@@ -1,18 +1,23 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+class APIResponse {
+  int statusCode;
+  bool isSuccess;
+  List<String> errorMessages;
+  Map<String, dynamic>? result;
 
-part 'api_response.freezed.dart';
-part 'api_response.g.dart';
+  APIResponse(
+      {required this.statusCode,
+      required this.isSuccess,
+      required this.errorMessages,
+      required this.result});
 
-@freezed
-class APIResponse with _$APIResponse {
-  @JsonSerializable(explicitToJson: true)
-  const factory APIResponse({
-    required int statusCode,
-    required bool isSuccess,
-    required List<String> errorMessages,
-    required Map<String, dynamic>? result,
-  }) = _Response;
-
-  factory APIResponse.fromJson(Map<String, dynamic> json) =>
-      _$APIResponseFromJson(json);
+  factory APIResponse.fromJson(Map<String, dynamic> json) {
+    return APIResponse(
+      statusCode: json['statusCode'] as int,
+      isSuccess: json['isSuccess'] as bool,
+      errorMessages: (json['errorMessages'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
+      result: json['result'] as Map<String, dynamic>?,
+    );
+  }
 }

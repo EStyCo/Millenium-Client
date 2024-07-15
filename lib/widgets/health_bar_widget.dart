@@ -34,26 +34,32 @@ class HealthBarWidget extends ConsumerWidget {
             ),
           ]),
         ),
-        const SizedBox(
-          width: 10,
-        ),
-        Row(
-          children: [
-            ElevatedButton(
-              onPressed: () {},
-              child: Row(
-                children: [
-                  const Icon(Icons.bolt_outlined, color: Colors.lightBlue),
-                  const SizedBox(width: 5),
-                  Text(
-                    '$currentMP/$maxMP',
-                    style: const TextStyle(color: Colors.black),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+        // const SizedBox(
+        //   width: 80,
+        // ),
+        // Row(
+        //   children: [
+        //     ElevatedButton(
+        //       onPressed: () {},
+        //       child: Row(
+        //         children: [
+        //           const Icon(Icons.bolt_outlined, color: Colors.lightBlue),
+        //           const SizedBox(width: 5),
+        //           Text(
+        //             '$currentMP/$maxMP',
+        //             style: const TextStyle(color: Colors.black),
+        //           ),
+        //         ],
+        //       ),
+        //     ),
+        //   ],
+        // ),
+        // ElevatedButton(
+        //   onPressed: () {
+        //     Navigator.pushNamed(context, '/modalInv');
+        //   },
+        //   child: const Icon(Icons.inventory),
+        // )
       ],
     );
   }

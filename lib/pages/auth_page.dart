@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:client/models/Utilities/base_url.dart';
 import 'package:client/services/handlers/auth_handler.dart';
 import 'package:client/widgets/switch_platform_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -39,8 +41,9 @@ class AuthPage extends ConsumerWidget {
                 child: Align(
                   alignment: Alignment.center,
                   heightFactor: 250 / (400),
-                  child: Image.asset(
-                    'assets/images/home_page/millenium.jpg',
+                  child: CachedNetworkImage(
+                  imageUrl:
+                      '${BaseUrl.Get()}/imageProvider/home/millennium.jpg',
                     fit: BoxFit.cover,
                     width: double.infinity,
                   ),

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:client/models/LoginPage/Character/character.dart';
 import 'package:client/models/Utilities/base_url.dart';
+import 'package:client/services/handlers/auth_handler.dart';
 import 'package:client/services/handlers/buff_bar_handler.dart';
 import 'package:client/services/handlers/logs_list_handler.dart';
 import 'package:flutter/material.dart';
@@ -34,13 +35,21 @@ class HealthBarHandler extends ChangeNotifier {
   final hubConnection = HubConnectionBuilder().withUrl(serverUrl).build();
 
   Future<void> connectHub(BuildContext context) async {
+    hubConnection.keepAliveIntervalInMilliseconds = 3000000;
     hubConnection.on('UpdateHP', _handleUpdateHP);
     hubConnection.on('UpdateMP', _handleUpdateMP);
     hubConnection.on('UpdateLogs', logsHandler.updatelogList);
     hubConnection.on('UpdateBuffBar', buffBarHandler.updateBuffBar);
-    hubConnection.onclose((exception) {
-      if (context.mounted) Navigator.pushReplacementNamed(context, '/');
-    });
+    hubConnection.onclose(
+      (exception) async {
+        if (hubConnection.state == HubConnectionState.disconnected) {
+          //_reconnecting(context);
+          await hubConnection.start();
+          await hubConnection
+              .invoke('ConnectHub', args: [storage.character.name]);
+        }
+      },
+    );
 
     if (hubConnection.state != HubConnectionState.connected) {
       await hubConnection.start();
@@ -70,5 +79,28 @@ class HealthBarHandler extends ChangeNotifier {
       _maxMP = newMP[1];
       notifyListeners();
     }
+  }
+
+  _reconnecting(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false, // Диалог нельзя закрыть, нажав вне его
+      builder: (BuildContext context) {
+        return WillPopScope(
+          onWillPop: () async => false, // Блокируем кнопку назад
+          child: AlertDialog(
+            title: Text('Не закрываемый алерт'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text('Этот диалог нельзя закрыть.'),
+                  Text('Никаким образом.'),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 }

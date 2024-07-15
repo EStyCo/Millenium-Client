@@ -5,7 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MentorReturnWidget extends StatelessWidget {
   final int freePoints;
-  const MentorReturnWidget({super.key, required this.freePoints});
+  final int totalPoints;
+  const MentorReturnWidget({super.key, required this.freePoints, required this.totalPoints});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class MentorReturnWidget extends StatelessWidget {
           child: Row(
             children: [
               Expanded(
-                child: Text('Свободные очки: $freePoints'),
+                child: Text('Свободные очки: $freePoints из $totalPoints возможных.'),
               ),
               ElevatedButton(
                 onPressed: () {

@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:client/models/Utilities/base_url.dart';
 import 'package:client/services/handlers/battle_place_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -43,7 +45,10 @@ class ActiveUsersListWidget extends ConsumerWidget {
                       child: CircleAvatar(
                         radius: 25,
                         backgroundColor: Colors.black12,
-                        child: Image.asset('assets/images/warrior_image.jpg'),
+                        child: CachedNetworkImage(
+                                      imageUrl:
+                                          '${BaseUrl.Get()}/imageProvider/characters/warrior.jpg'),
+                        //Image.asset('assets/images/warrior_image.jpg'),
                       ),
                     ),
                     title: Text(
@@ -64,8 +69,11 @@ class ActiveUsersListWidget extends ConsumerWidget {
                               for (var item in provider.listUsers[index].states)
                                 CircleAvatar(
                                   radius: 15,
-                                  backgroundImage: AssetImage(
-                                      'assets/images/spells/${item.imagePath}'),
+                                  child: CachedNetworkImage(
+                                      imageUrl:
+                                          '${BaseUrl.Get()}/imageProvider/${item.imagePath}'),
+                                  // AssetImage(
+                                  //     'assets/images/spells/${item.imagePath}'),
                                 ),
                             ],
                           )

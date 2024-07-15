@@ -4,7 +4,7 @@ class PlaceInfo {
   bool canAttackUser;
 
   PlaceInfo({
-    this.imagePath = 'default.png',
+    this.imagePath = '',
     this.description = '---',
     this.canAttackUser = false,
   });

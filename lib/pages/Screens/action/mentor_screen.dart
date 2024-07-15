@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:client/models/Utilities/base_url.dart';
 import 'package:client/services/handlers/mentor_list_handler.dart';
 import 'package:client/widgets/mentor_return_widget.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +20,7 @@ class MentorScreen extends ConsumerWidget {
         children: [
           MentorReturnWidget(
             freePoints: provider.freePoints,
+            totalPoints: provider.totalPoints,
           ),
           Expanded(
             child: Container(
@@ -32,6 +35,7 @@ class MentorScreen extends ConsumerWidget {
         children: [
           MentorReturnWidget(
             freePoints: provider.freePoints,
+            totalPoints: provider.totalPoints,
           ),
           Expanded(
             child: ListView.builder(
@@ -40,8 +44,13 @@ class MentorScreen extends ConsumerWidget {
                 return ListTile(
                   leading: CircleAvatar(
                     radius: 25,
-                    backgroundImage: AssetImage(
-                        'assets/images/spells/${provider.spellList[index].imagePath}'),
+                    child: ClipOval(
+                      child: CachedNetworkImage(
+                        imageUrl:
+                            '${BaseUrl.Get()}/imageProvider/${provider.spellList[index].imagePath}',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                   title: Text(provider.spellList[index].name),
                   subtitle: Text(

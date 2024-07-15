@@ -1,36 +1,20 @@
+import 'package:client/bloc/equipment/equipment_bloc.dart';
+import 'package:client/bloc/equipment/equipment_event.dart';
+import 'package:client/bloc/equipment/equipment_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class Equipment extends StatefulWidget {
-  const Equipment({super.key});
+class EquipmentWidget extends StatelessWidget {
+  EquipmentWidget({super.key});
 
-  @override
-  State<Equipment> createState() => _EquipmentState();
-}
-
-class _EquipmentState extends State<Equipment> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          children: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.headset)),
-            IconButton(onPressed: () {}, icon: const Icon(Icons.feed)),
-          ],
-        ),
-        Row(
-          children: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.handshake)),
-            IconButton(onPressed: () {}, icon: const Icon(Icons.shield)),
-          ],
-        ),
-        Row(
-          children: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.boy_rounded)),
-            IconButton(onPressed: () {}, icon: const Icon(Icons.food_bank_outlined)),
-          ],
-        ),
-      ],
+    //BlocProvider.of<EquipmentBloc>(context).add(GetEquipmentEvent());
+    
+    return BlocBuilder<EquipmentBloc, EquipmentState>(
+      builder: (context, state) {
+        return state;
+      },
     );
   }
 }

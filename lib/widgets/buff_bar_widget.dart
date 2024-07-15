@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:client/models/Utilities/base_url.dart';
 import 'package:client/services/handlers/buff_bar_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,8 +26,11 @@ class BuffBarWidget extends ConsumerWidget {
               child: Stack(
                 children: [
                   ClipOval(
-                    child: Image.asset(
-                      'assets/images/spells/${provider.stateslist[index].imagePath}',
+                    child: CachedNetworkImage(
+                      imageUrl:
+                          '${BaseUrl.Get()}/imageProvider/${provider.stateslist[index].imagePath}',
+                      // Image.asset(
+                      //   'assets/images/spells/${provider.stateslist[index].imagePath}',
                       width: 50,
                       height: 50,
                       fit: BoxFit.cover,

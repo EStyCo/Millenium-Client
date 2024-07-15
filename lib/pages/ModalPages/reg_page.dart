@@ -1,4 +1,4 @@
-import 'package:client/widgets/default_appbar.dart';
+import 'package:client/widgets/appbars/default_appbar.dart';
 import 'package:client/widgets/divider_widget.dart';
 import 'package:client/widgets/equipment_widget.dart';
 import 'package:client/widgets/stats_widget.dart';

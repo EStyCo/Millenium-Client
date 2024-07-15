@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:client/bloc/details_monster/details_monster_bloc.dart';
 import 'package:client/bloc/details_monster/details_monster_state.dart';
+import 'package:client/models/Utilities/base_url.dart';
 import 'package:client/services/handlers/battle_place_handler.dart';
 import 'package:client/services/local/user_storage.dart';
 import 'package:flutter/material.dart';
@@ -73,9 +75,13 @@ class MonsterListWidget extends ConsumerWidget {
                       },
                       child: CircleAvatar(
                         radius: 25,
-                        backgroundColor: Colors.black12,
-                        child: Image.asset(
-                            'assets/images/monsters/${provider.listMonster[index].imagePath}'),
+                        child: ClipOval(
+                          child: CachedNetworkImage(
+                            imageUrl:
+                                '${BaseUrl.Get()}/imageProvider/${provider.listMonster[index].imagePath}',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
                     ),
                     title: Row(
@@ -105,9 +111,14 @@ class MonsterListWidget extends ConsumerWidget {
                         ),
                         for (var item in provider.listMonster[index].states)
                           CircleAvatar(
-                            radius: 15,
-                            backgroundImage: AssetImage(
-                                'assets/images/spells/${item.imagePath}'),
+                            radius: 16,
+                            child: ClipOval(
+                              child: CachedNetworkImage(
+                                imageUrl:
+                                    '${BaseUrl.Get()}/imageProvider/${item.imagePath}',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
                       ],
                     ),

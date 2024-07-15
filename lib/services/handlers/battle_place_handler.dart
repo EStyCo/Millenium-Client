@@ -107,6 +107,8 @@ class BattlePlaceHandler extends ChangeNotifier {
     final name = GetIt.I<UserStorage>().character.name;
     hubConnection = HubConnectionBuilder().withUrl(serverUrl).build();
 
+    hubConnection.keepAliveIntervalInMilliseconds = 3000000;
+
     hubConnection.on('UpdateListMonsters', _updateListMonsters);
     hubConnection.on('UpdateListUsers', _updateListUsers);
     hubConnection.on('ResetTarget', ((args) => targetIndex = -1));

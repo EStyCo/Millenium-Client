@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:client/models/Utilities/base_url.dart';
 import 'package:client/services/handlers/battle_place_handler.dart';
 import 'package:client/widgets/active_users_list_widget.dart';
 import 'package:client/widgets/spell_list_widget.dart';
@@ -38,7 +40,8 @@ class SpecialPlaceScreen extends StatelessWidget {
               child: Column(
                 children: [
                   ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 800),
+                    constraints: const BoxConstraints(
+                        minHeight: 200, minWidth: 200, maxWidth: 800),
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
                       child: ClipRRect(
@@ -46,9 +49,9 @@ class SpecialPlaceScreen extends StatelessWidget {
                         child: Align(
                           alignment: Alignment.center,
                           heightFactor: 200 / (350 + 50),
-                          child: Image.asset(
-                            //provider.imagePath,
-                            'assets/images/locations/masturbation.png',
+                          child: CachedNetworkImage(
+                            imageUrl:
+                                '${BaseUrl.Get()}/imageProvider/locations/masturbation.png',
                             fit: BoxFit.cover,
                             width: double.infinity,
                           ),
