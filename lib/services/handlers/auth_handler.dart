@@ -47,7 +47,7 @@ class AuthHandler extends ChangeNotifier {
 
       if (response.isSuccess) {
         final Character character =
-            Character.fromJson(response.result?['character']);
+            Character.fromJson(response.result!);
         storage.character = character;
       } else {
         throw Exception();

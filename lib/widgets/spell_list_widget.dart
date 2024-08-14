@@ -67,7 +67,15 @@ class SpellListWidgetState extends ConsumerState<SpellListWidget> {
     }
 
     if (provider.spellList.isEmpty) {
-      return const CircularProgressIndicator();
+      return const Padding(
+        padding: EdgeInsets.only(bottom: 15),
+        child: Center(
+          child: Text(
+            'Нет активных способностей.',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+      );
     } else {
       return Container(
         color: Colors.transparent,
@@ -83,7 +91,7 @@ class SpellListWidgetState extends ConsumerState<SpellListWidget> {
               onTap: !provider.spellList[index].isReady || !provider.canAttack
                   ? null
                   : () {
-                      provider.attack(provider.spellList[index].spellType);
+                      provider.useSpell(provider.spellList[index].spellType);
                     },
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(35),

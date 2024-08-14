@@ -6,6 +6,7 @@ class Spell {
   String? description;
   String? imagePath;
   bool isReady;
+  bool selfUse;
 
   Spell({
     required this.spellType,
@@ -15,6 +16,7 @@ class Spell {
     required this.description,
     required this.imagePath,
     required this.isReady,
+    required this.selfUse,
   });
 
   factory Spell.fromJson(Map<String, dynamic> json) {
@@ -26,6 +28,7 @@ class Spell {
       description: json['description'] as String?,
       imagePath: json['imagePath'] as String?,
       isReady: json['isReady'] as bool,
+      selfUse: json['selfUse'] as bool,
     );
   }
 }

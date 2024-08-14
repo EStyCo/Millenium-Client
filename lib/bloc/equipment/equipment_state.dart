@@ -33,8 +33,11 @@ class LoadedEquipmentState extends EquipmentState {
               mainAxisSize: MainAxisSize.min,
               children: [
                 CachedNetworkImage(
-                    imageUrl:
-                        '${BaseUrl.Get()}/imageProvider/${item.imagePath}'),
+                  imageUrl: '${BaseUrl.Get()}/imageProvider/${item.imagePath}',
+                  fit: BoxFit.contain,
+                  height: 100,
+                  width: 100,
+                ),
                 const SizedBox(height: 10),
                 Text(
                   '${item.name} [${item.id}]',
@@ -119,6 +122,7 @@ class LoadedEquipmentState extends EquipmentState {
               width: 60,
               height: 60,
               child: InkWell(
+                onTap: () => _getDetails(context, equip.feet),
                 child: _getImage(equip.feet),
               ),
             ),

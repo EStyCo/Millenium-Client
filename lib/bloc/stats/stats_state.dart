@@ -2,10 +2,8 @@ import 'package:client/bloc/stats/stats_bloc.dart';
 import 'package:client/bloc/stats/stats_event.dart';
 import 'package:client/models/Utilities/stats_type.dart';
 import 'package:client/models/stats.dart';
-import 'package:client/services/local/user_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 
 abstract class StatsState extends StatelessWidget {
   const StatsState({super.key});
@@ -39,82 +37,114 @@ class LoadedStatsState extends StatsState {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 15),
+          padding: const EdgeInsets.only(left: 15, top: 10),
           child: Text(
-              '${GetIt.I<UserStorage>().character.name} -  ${stats.level} lvl ${stats.currentExp}/${stats.toLevelExp} exp'),
+            '${stats.level} Уровень ${stats.currentExp}/${stats.toLevelExp} exp',
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
         ),
-        Row(
-          children: [
-            IconButton(
-              onPressed: () {
-                bloc.add(AddStatsEvent(type: StatsType.strength));
-              },
-              icon: const Icon(Icons.add),
-              iconSize: 15,
-            ),
-            IconButton(
-              onPressed: () {
-                bloc.add(ReduceStatsEvent(type: StatsType.strength));
-              },
-              icon: const Icon(Icons.remove),
-              iconSize: 15,
-            ),
-            Text('Strength: ${stats.strength}'),
-          ],
+        _buildStatRow(
+          context,
+          bloc,
+          'Сила',
+          stats.strength,
+          StatsType.strength,
         ),
-        Row(
-          children: [
-            IconButton(
-              onPressed: () {
-                bloc.add(AddStatsEvent(type: StatsType.agility));
-              },
-              icon: const Icon(Icons.add),
-              iconSize: 15,
-            ),
-            IconButton(
-              onPressed: () {
-                bloc.add(ReduceStatsEvent(type: StatsType.agility));
-              },
-              icon: const Icon(Icons.remove),
-              iconSize: 15,
-            ),
-            Text('Agility: ${stats.agility}'),
-          ],
+        _buildStatRow(
+          context,
+          bloc,
+          'Ловкость',
+          stats.agility,
+          StatsType.agility,
         ),
-        Row(
-          children: [
-            IconButton(
-              onPressed: () {
-                bloc.add(AddStatsEvent(type: StatsType.intelligence));
-              },
-              icon: const Icon(Icons.add),
-              iconSize: 15,
-            ),
-            IconButton(
-              onPressed: () {
-                bloc.add(ReduceStatsEvent(type: StatsType.intelligence));
-              },
-              icon: const Icon(Icons.remove),
-              iconSize: 15,
-            ),
-            Text('Intelligence: ${stats.intelligence}'),
-          ],
+        _buildStatRow(
+          context,
+          bloc,
+          'Выносливость',
+          stats.vitality,
+          StatsType.vitality,
+        ),
+        _buildStatRow(
+          context,
+          bloc,
+          'Интеллект',
+          stats.intelligence,
+          StatsType.intelligence,
+        ),
+        _buildStatRow(
+          context,
+          bloc,
+          'Мастерство',
+          stats.mastery,
+          StatsType.mastery,
+        ),
+        _buildStatRow(
+          context,
+          bloc,
+          'Удача',
+          stats.luck,
+          StatsType.luck,
         ),
         Padding(
           padding: const EdgeInsets.only(left: 15),
-          child: Text('Free Points: ${stats.freePoints}'),
+          child: Text(
+            'Free Points: ${stats.freePoints}',
+            style: const TextStyle(fontSize: 16),
+          ),
         ),
+        const SizedBox(height: 20),
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-                onPressed: isChanged
-                    ? () {
-                        bloc.add(SaveStatsEvent());
-                      }
-                    : null,
-                child: const Text('Сохранить'))
+              onPressed: isChanged
+                  ? () {
+                      bloc.add(SaveStatsEvent());
+                    }
+                  : null,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: isChanged ? Colors.blue : Colors.grey,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                textStyle: const TextStyle(fontSize: 16),
+              ),
+              child: const Text('Сохранить'),
+            ),
           ],
-        )
+        ),
+      ],
+    );
+  }
+
+  Widget _buildStatRow(
+    BuildContext context,
+    StatsBloc bloc,
+    String label,
+    int value,
+    StatsType type,
+  ) {
+    return Row(
+      children: [
+        IconButton(
+          onPressed: () {
+            bloc.add(AddStatsEvent(type: type));
+          },
+          icon: const Icon(Icons.add),
+          iconSize: 16,
+          color: Colors.green,
+        ),
+        IconButton(
+          onPressed: () {
+            bloc.add(ReduceStatsEvent(type: type));
+          },
+          icon: const Icon(Icons.remove),
+          iconSize: 16,
+          color: Colors.red,
+        ),
+        Text(
+          '$label: $value',
+          style: const TextStyle(fontSize: 14),
+        ),
       ],
     );
   }

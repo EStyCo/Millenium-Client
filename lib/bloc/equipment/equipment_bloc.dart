@@ -10,7 +10,7 @@ import 'package:get_it/get_it.dart';
 class EquipmentBloc extends Bloc<EquipmentEvent, EquipmentState> {
   final storage = GetIt.I<UserStorage>();
 
-  EquipmentBloc() : super(EmptyEquipmentState()) {
+  EquipmentBloc() : super(const EmptyEquipmentState()) {
     on<GetEquipmentEvent>((event, emit) async {
       var response = await EquipService().getEquip(
         NameRequest(name: storage.character.name),

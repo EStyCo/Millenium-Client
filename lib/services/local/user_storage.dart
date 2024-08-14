@@ -81,26 +81,26 @@ class HealthBarHandler extends ChangeNotifier {
     }
   }
 
-  _reconnecting(BuildContext context) {
-    showDialog(
-      context: context,
-      barrierDismissible: false, // Диалог нельзя закрыть, нажав вне его
-      builder: (BuildContext context) {
-        return WillPopScope(
-          onWillPop: () async => false, // Блокируем кнопку назад
-          child: AlertDialog(
-            title: Text('Не закрываемый алерт'),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: <Widget>[
-                  Text('Этот диалог нельзя закрыть.'),
-                  Text('Никаким образом.'),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
+  // _reconnecting(BuildContext context) {
+  //   showDialog(
+  //     context: context,
+  //     barrierDismissible: false, // Диалог нельзя закрыть, нажав вне его
+  //     builder: (BuildContext context) {
+  //       return WillPopScope(
+  //         onWillPop: () async => false, // Блокируем кнопку назад
+  //         child: AlertDialog(
+  //           title: Text('Не закрываемый алерт'),
+  //           content: SingleChildScrollView(
+  //             child: ListBody(
+  //               children: <Widget>[
+  //                 Text('Этот диалог нельзя закрыть.'),
+  //                 Text('Никаким образом.'),
+  //               ],
+  //             ),
+  //           ),
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 }

@@ -1,1 +1,1 @@
-enum StatsType { strength, agility, intelligence }
+enum StatsType { strength, agility, vitality, intelligence, mastery, luck }

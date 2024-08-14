@@ -13,7 +13,7 @@ class EquipService extends BaseService {
       APIRequest(
         apiType: ApiType.POST,
         data: jsonEncode(request.toJson()),
-        url: '${BaseUrl.Get()}$route/getInventory',
+        url: '${BaseUrl.Get()}$route/Inventory',
       ),
     );
   }
@@ -23,7 +23,7 @@ class EquipService extends BaseService {
       APIRequest(
         apiType: ApiType.POST,
         data: jsonEncode(request.toJson()),
-        url: '${BaseUrl.Get()}$route/getEquip',
+        url: '${BaseUrl.Get()}$route/GetEquip',
       ),
     );
   }
@@ -33,7 +33,7 @@ class EquipService extends BaseService {
       APIRequest(
         apiType: ApiType.PUT,
         data: jsonEncode(request.toJson()),
-        url: '${BaseUrl.Get()}$route/equipItem',
+        url: '${BaseUrl.Get()}$route/Equip',
       ),
     );
   }
@@ -43,7 +43,17 @@ class EquipService extends BaseService {
       APIRequest(
         apiType: ApiType.PUT,
         data: jsonEncode(request.toJson()),
-        url: '${BaseUrl.Get()}$route/unEquipItem',
+        url: '${BaseUrl.Get()}$route/UnEquip',
+      ),
+    );
+  }
+
+  Future<APIResponse> destroyItem(DressingRequest request) {
+    return sendAsync(
+      APIRequest(
+        apiType: ApiType.DELETE,
+        data: jsonEncode(request.toJson()),
+        url: '${BaseUrl.Get()}$route/Destroy',
       ),
     );
   }

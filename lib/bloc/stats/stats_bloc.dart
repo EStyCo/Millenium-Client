@@ -66,8 +66,17 @@ class StatsBloc extends Bloc<StatsEvent, StatsState> {
       case StatsType.agility:
         stats.agility++;
         break;
+      case StatsType.vitality:
+        stats.vitality++;
+        break;
       case StatsType.intelligence:
         stats.intelligence++;
+        break;
+      case StatsType.mastery:
+        stats.mastery++;
+        break;
+      case StatsType.luck:
+        stats.luck++;
         break;
       default:
         throw ArgumentError('Invalid type: $type');
@@ -88,9 +97,27 @@ class StatsBloc extends Bloc<StatsEvent, StatsState> {
           stats.freePoints++;
         }
         break;
+      case StatsType.vitality:
+        if (stats.vitality > 0) {
+          stats.vitality--;
+          stats.freePoints++;
+        }
+        break;
       case StatsType.intelligence:
         if (stats.intelligence > 0) {
           stats.intelligence--;
+          stats.freePoints++;
+        }
+        break;
+        case StatsType.mastery:
+        if (stats.mastery > 0) {
+          stats.mastery--;
+          stats.freePoints++;
+        }
+        break;
+      case StatsType.luck:
+        if (stats.luck > 0) {
+          stats.luck--;
           stats.freePoints++;
         }
         break;

@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
           '/': (context) => AuthPage(),
           '/main': (context) => const DefaultPage(),
           '/modalReg': (context) => RegModalPage(),
-          '/modalChar': (context) => const CharacterModalPage(),
+          '/modalChar': (context) => CharacterModalPage(),
           '/modalInv': (context) => const InventoryModalPage()
         },
       ),

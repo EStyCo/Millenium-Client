@@ -5,7 +5,10 @@ class Stats {
   int freePoints;
   int strength;
   int agility;
+  int vitality;
   int intelligence;
+  int mastery;
+  int luck;
 
   Stats({
     required this.level,
@@ -14,7 +17,10 @@ class Stats {
     required this.freePoints,
     required this.strength,
     required this.agility,
+    required this.vitality,
     required this.intelligence,
+    required this.mastery,
+    required this.luck,
   });
 
   factory Stats.fromJson(Map<String, dynamic> json) {
@@ -25,7 +31,10 @@ class Stats {
       freePoints: json['freePoints'] as int,
       strength: json['strength'] as int,
       agility: json['agility'] as int,
+      vitality: json['vitality'] as int,
       intelligence: json['intelligence'] as int,
+      mastery: json['mastery'] as int,
+      luck: json['luck'] as int,
     );
   }
 }

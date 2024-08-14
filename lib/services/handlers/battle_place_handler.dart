@@ -26,8 +26,14 @@ class BattlePlaceHandler extends ChangeNotifier {
 
   void pickMonster(int index) {
     targetName = '';
-    targetIndex = index;
+    if (targetIndex == index) {
+      targetIndex = -1;
+    } else {
+      targetIndex = index;
+    }
     notifyListeners();
+    print('target index: $targetIndex');
+    print('target name: $targetName');
   }
 
   void pickUser(String name) {
