@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:client/models/Utilities/base_url.dart';
+import 'package:client/regex_converter.dart';
 import 'package:client/services/handlers/auth_handler.dart';
+import 'package:client/services/local/auth_service.dart';
 import 'package:client/widgets/switch_platform_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +12,10 @@ class AuthPage extends ConsumerWidget {
   AuthPage({super.key}) {
     GetIt.I<AuthHandler>().checkVersion();
   }
-
+  final parser = RegexConverter();
+  final input = '{b:123} и {i:123} и {b:123}';
   final handler = GetIt.I<AuthHandler>();
-
+  final AuthService authService = AuthService();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final provider = ref.watch(
@@ -20,7 +23,7 @@ class AuthPage extends ConsumerWidget {
         (ref) => handler,
       ),
     );
-
+    parser.parsing(input);
     return Scaffold(
       appBar: AppBar(),
       body: Column(
@@ -33,7 +36,7 @@ class AuthPage extends ConsumerWidget {
             ),
           ),
           ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 800),
+            constraints: const BoxConstraints(maxWidth: 400),
             child: Padding(
               padding: const EdgeInsets.only(left: 10, right: 10),
               child: ClipRRect(
@@ -42,8 +45,8 @@ class AuthPage extends ConsumerWidget {
                   alignment: Alignment.center,
                   heightFactor: 250 / (400),
                   child: CachedNetworkImage(
-                  imageUrl:
-                      '${BaseUrl.Get()}/imageProvider/home/millennium.jpg',
+                    imageUrl:
+                        '${BaseUrl.Get()}/imageProvider/home/millennium.jpg',
                     fit: BoxFit.cover,
                     width: double.infinity,
                   ),
@@ -51,6 +54,26 @@ class AuthPage extends ConsumerWidget {
               ),
             ),
           ),
+          if (authService.currentUser != null)
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Logged in as: ${authService.currentUser!.email}'),
+                ElevatedButton(
+                  onPressed: () async {
+                    await authService.signOut();
+                  },
+                  child: const Text('Sign Out'),
+                ),
+              ],
+            )
+          else
+            ElevatedButton(
+              onPressed: () async {
+                await authService.signInWithGoogle();
+              },
+              child: const Text('Sign in with Google'),
+            ),
           if (provider.isCorrectVersion)
             Padding(
               padding: const EdgeInsets.only(left: 60, right: 60),

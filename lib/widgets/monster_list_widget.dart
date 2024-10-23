@@ -23,21 +23,21 @@ class MonsterListWidget extends ConsumerWidget {
       ),
     );
 
-    Color _changeColor(int index) {
+    Color changeColor(int index) {
       if (provider.listMonster[index].id == provider.targetIndex) {
         return Colors.black12;
       }
       return Colors.white;
     }
 
-    Duration _setDuration(int index) {
+    Duration setDuration(int index) {
       if (provider.listMonster[index].id == provider.targetIndex) {
         return const Duration(milliseconds: 250);
       }
       return Duration.zero;
     }
 
-    void _showDetails(BuildContext context, int index) {
+    void showDetails(BuildContext context, int index) {
       showDialog(
         context: context,
         barrierDismissible: true,
@@ -63,14 +63,14 @@ class MonsterListWidget extends ConsumerWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: AnimatedContainer(
-                  color: _changeColor(index),
-                  duration: _setDuration(index),
+                  color: changeColor(index),
+                  duration: setDuration(index),
                   curve: Curves.easeOutQuad,
                   child: ListTile(
                     splashColor: Colors.transparent,
                     leading: InkWell(
                       onTap: () {
-                        _showDetails(context, index);
+                        showDetails(context, index);
                         BlocProvider.of<DetailsMonsterBloc>(context).add(index);
                       },
                       child: CircleAvatar(

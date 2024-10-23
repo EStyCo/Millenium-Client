@@ -48,6 +48,7 @@ class LoadedStatsState extends StatsState {
           bloc,
           'Сила',
           stats.strength,
+          stats.addStrength,
           StatsType.strength,
         ),
         _buildStatRow(
@@ -55,6 +56,7 @@ class LoadedStatsState extends StatsState {
           bloc,
           'Ловкость',
           stats.agility,
+          stats.addAgility,
           StatsType.agility,
         ),
         _buildStatRow(
@@ -62,6 +64,7 @@ class LoadedStatsState extends StatsState {
           bloc,
           'Выносливость',
           stats.vitality,
+          stats.addVitality,
           StatsType.vitality,
         ),
         _buildStatRow(
@@ -69,6 +72,7 @@ class LoadedStatsState extends StatsState {
           bloc,
           'Интеллект',
           stats.intelligence,
+          stats.addIntelligence,
           StatsType.intelligence,
         ),
         _buildStatRow(
@@ -76,6 +80,7 @@ class LoadedStatsState extends StatsState {
           bloc,
           'Мастерство',
           stats.mastery,
+          stats.addMastery,
           StatsType.mastery,
         ),
         _buildStatRow(
@@ -83,6 +88,7 @@ class LoadedStatsState extends StatsState {
           bloc,
           'Удача',
           stats.luck,
+          stats.addLuck,
           StatsType.luck,
         ),
         Padding(
@@ -121,6 +127,7 @@ class LoadedStatsState extends StatsState {
     StatsBloc bloc,
     String label,
     int value,
+    int addValue,
     StatsType type,
   ) {
     return Row(
@@ -144,6 +151,11 @@ class LoadedStatsState extends StatsState {
         Text(
           '$label: $value',
           style: const TextStyle(fontSize: 14),
+        ),
+        if(addValue != 0)
+        Text(
+          ' +$addValue',
+          style: const TextStyle(fontSize: 14, color: Colors.black54),
         ),
       ],
     );

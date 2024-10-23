@@ -54,8 +54,9 @@ class StatsBloc extends Bloc<StatsEvent, StatsState> {
   }
 
   Future _saveStats() async {
-    var response = await StatsService()
-        .updateStats(UpdateStatRequest.mapFromStats(stats, _name));
+    await StatsService().updateStats(
+      UpdateStatRequest.mapFromStats(stats, _name),
+    );
   }
 
   void _changeAddStats(StatsType type) {
@@ -109,7 +110,7 @@ class StatsBloc extends Bloc<StatsEvent, StatsState> {
           stats.freePoints++;
         }
         break;
-        case StatsType.mastery:
+      case StatsType.mastery:
         if (stats.mastery > 0) {
           stats.mastery--;
           stats.freePoints++;

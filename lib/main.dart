@@ -1,9 +1,11 @@
-import 'package:client/bloc/action_screen/action_screen_bloc.dart';
+import 'dart:io';
+
 import 'package:client/bloc/details_monster/details_monster_bloc.dart';
-import 'package:client/bloc/equipment/equipment_bloc.dart';
-import 'package:client/bloc/inventory/inventory_bloc.dart';
+import 'package:client/bloc/action_screen/action_screen_bloc.dart';
 import 'package:client/pages/ModalPages/character_page.dart';
 import 'package:client/pages/ModalPages/inventory_page.dart';
+import 'package:client/bloc/equipment/equipment_bloc.dart';
+import 'package:client/bloc/inventory/inventory_bloc.dart';
 import 'package:client/services/local/di_container.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:client/pages/ModalPages/reg_page.dart';
@@ -12,9 +14,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:client/pages/default_page.dart';
 import 'package:client/pages/auth_page.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  if (Platform.isAndroid) {
+    print('android');
+  }
   setupGetIt();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    name: 'Millenium',
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -42,7 +54,7 @@ class MyApp extends StatelessWidget {
           '/': (context) => AuthPage(),
           '/main': (context) => const DefaultPage(),
           '/modalReg': (context) => RegModalPage(),
-          '/modalChar': (context) => CharacterModalPage(),
+          '/modalChar': (context) => const CharacterModalPage(),
           '/modalInv': (context) => const InventoryModalPage()
         },
       ),

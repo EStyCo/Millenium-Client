@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:client/bloc/action_screen/action_screen_bloc.dart';
 import 'package:client/bloc/action_screen/action_screen_event.dart';
 import 'package:client/models/Utilities/base_url.dart';
-import 'package:client/widgets/divider_widget.dart';
 import 'package:client/widgets/health_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,10 +18,9 @@ class TownScreen extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 5),
+            padding: const EdgeInsets.only(top: 5, bottom: 5),
             child: HealthBarWidget(),
           ),
-          const MyDivider(),
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 800),
             child: Padding(
@@ -35,8 +33,6 @@ class TownScreen extends StatelessWidget {
                   child: CachedNetworkImage(
                     imageUrl:
                         '${BaseUrl.Get()}/imageProvider/locations/town.jpeg',
-                    // Image.asset(
-                    //   'assets/images/locations/town.jpeg',
                     fit: BoxFit.cover,
                     width: double.infinity,
                   ),

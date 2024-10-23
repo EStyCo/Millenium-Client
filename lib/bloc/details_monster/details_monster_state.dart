@@ -1,10 +1,11 @@
-import 'dart:ffi';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:client/models/Utilities/base_url.dart';
 import 'package:client/pages/Screens/action/town_screen.dart';
 import 'package:client/models/Place/details_monster.dart';
 import 'package:client/services/local/user_storage.dart';
+import 'package:client/widgets/details/details_rewards_widget.dart';
+import 'package:client/widgets/details/details_states_widget.dart';
 import 'package:client/widgets/divider_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -81,48 +82,9 @@ class LoadedDetailsState extends DetailsMonsterState {
           Text('Сила: ${details.strength}'),
           Text('Ловкость: ${details.agility}'),
           Text('Интеллект: ${details.intelligence}'),
+          DetailsStatesWidget(details: details),
           const MyDivider(),
-          const Center(
-            child: Text(
-              'Состояния',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-          const SizedBox(height: 10),
-          for (var item in details.states)
-            Column(
-              children: [
-                Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 20,
-                      child: ClipOval(
-                        child: CachedNetworkImage(
-                          imageUrl:
-                              '${BaseUrl.Get()}/imageProvider/${item.imagePath}',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    // CircleAvatar(
-                    //   radius: 15,
-                    //   backgroundImage:
-                    //       AssetImage('assets/images/spells/${item.imagePath}'),
-                    // ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: Text(
-                        item.description,
-                        softWrap: true,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 5,
-                      ),
-                    ),
-                  ],
-                ),
-                const MyDivider(),
-              ],
-            )
+          DetailsRewardsWidget(items: details.rewards)
         ],
       ),
     );

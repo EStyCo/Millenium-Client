@@ -7,7 +7,7 @@ import 'dart:async';
 import 'dart:ui';
 
 class SpellListWidget extends ConsumerStatefulWidget {
-  const SpellListWidget({Key? key}) : super(key: key);
+  const SpellListWidget({super.key});
 
   @override
   SpellListWidgetState createState() => SpellListWidgetState();
@@ -44,7 +44,7 @@ class SpellListWidgetState extends ConsumerState<SpellListWidget> {
   Widget build(BuildContext context) {
     final provider = ref.watch(spellListProvider);
 
-    String _textSpell(int index) {
+    String textSpell(int index) {
       if (provider.spellList[index].restSeconds > 0) {
         return provider.spellList[index].restSeconds.toString();
       } else if (!provider.canAttack) {
@@ -54,7 +54,7 @@ class SpellListWidgetState extends ConsumerState<SpellListWidget> {
       }
     }
 
-    Widget _filter(int index) {
+    Widget filter(int index) {
       return BackdropFilter(
         filter: ImageFilter.blur(
           sigmaX: provider.spellList[index].isReady ? 0.0 : 5.0,
@@ -117,9 +117,9 @@ class SpellListWidgetState extends ConsumerState<SpellListWidget> {
                               ),
                             ),
                           ),
-                          Positioned.fill(child: _filter(index)),
+                          Positioned.fill(child: filter(index)),
                           Text(
-                            _textSpell(index),
+                            textSpell(index),
                             style: const TextStyle(
                                 fontSize: 25, color: Colors.white),
                           ),

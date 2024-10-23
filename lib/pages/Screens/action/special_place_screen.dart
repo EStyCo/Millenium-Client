@@ -25,10 +25,9 @@ class SpecialPlaceScreen extends StatelessWidget {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 5),
+                  padding: const EdgeInsets.only(top: 5, bottom: 5),
                   child: HealthBarWidget(),
                 ),
-                const MyDivider(),
                 BuffBarWidget()
               ],
             ),
@@ -67,7 +66,7 @@ class SpecialPlaceScreen extends StatelessWidget {
                         color: Colors.black12,
                         child: const Center(
                           child: Padding(
-                            padding: const EdgeInsets.all(15),
+                            padding: EdgeInsets.all(15),
                             child: Text(
                               'Добро пожаловать в дрочильню!\nНаслаждайтесь..',
                               textAlign: TextAlign.center,
@@ -94,7 +93,7 @@ class SpecialPlaceScreen extends StatelessWidget {
               ),
             ),
           ),
-          SpellListWidget(),
+          const SpellListWidget(),
         ],
       ),
     );

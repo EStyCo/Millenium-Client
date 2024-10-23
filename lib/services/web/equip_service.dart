@@ -51,7 +51,7 @@ class EquipService extends BaseService {
   Future<APIResponse> destroyItem(DressingRequest request) {
     return sendAsync(
       APIRequest(
-        apiType: ApiType.DELETE,
+        apiType: ApiType.POST,
         data: jsonEncode(request.toJson()),
         url: '${BaseUrl.Get()}$route/Destroy',
       ),

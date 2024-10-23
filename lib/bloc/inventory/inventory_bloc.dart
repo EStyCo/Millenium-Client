@@ -17,7 +17,7 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
       var response = await EquipService().getInventory(
         NameRequest(name: storage.character.name),
       );
-      emit(LoadingInventoryState());
+      emit(const LoadingInventoryState());
       if (response.isSuccess) {
         var inventory = InventoryResponse.fromJson(response.result!);
         if (inventory.items.isNotEmpty) {
@@ -25,7 +25,7 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
             items: inventory.items,
           ));
         } else {
-          emit(EmptyInventoryState());
+          emit(const EmptyInventoryState());
         }
       }
     });

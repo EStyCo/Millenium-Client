@@ -46,7 +46,7 @@ class LoadedEquipmentState extends EquipmentState {
                       fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 const SizedBox(height: 10),
-                Text(item.description)
+                Text('${item.description}\n${item.gainsDescription}')
               ],
             ),
           ),
@@ -122,15 +122,16 @@ class LoadedEquipmentState extends EquipmentState {
               width: 60,
               height: 60,
               child: InkWell(
-                onTap: () => _getDetails(context, equip.feet),
-                child: _getImage(equip.feet),
+                onTap: () => _getDetails(context, equip.belt),
+                child: _getImage(equip.belt),
               ),
             ),
             SizedBox(
               width: 60,
               height: 60,
               child: InkWell(
-                child: _getImage(null),
+                onTap: () => _getDetails(context, equip.feet),
+                child: _getImage(equip.feet),
               ),
             ),
           ],

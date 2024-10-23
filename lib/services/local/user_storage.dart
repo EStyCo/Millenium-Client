@@ -1,13 +1,12 @@
-import 'dart:async';
 import 'package:client/models/LoginPage/Character/character.dart';
-import 'package:client/models/Utilities/base_url.dart';
-import 'package:client/services/handlers/auth_handler.dart';
-import 'package:client/services/handlers/buff_bar_handler.dart';
 import 'package:client/services/handlers/logs_list_handler.dart';
-import 'package:flutter/material.dart';
+import 'package:client/services/handlers/buff_bar_handler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_it/get_it.dart';
+import 'package:client/models/Utilities/base_url.dart';
 import 'package:signalr_core/signalr_core.dart';
+import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'dart:async';
 
 class UserStorage {
   late Character character;

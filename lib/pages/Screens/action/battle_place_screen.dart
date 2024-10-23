@@ -4,7 +4,6 @@ import 'package:client/services/handlers/battle_place_handler.dart';
 import 'package:client/widgets/active_users_list_widget.dart';
 import 'package:client/widgets/monster_list_widget.dart';
 import 'package:client/widgets/routes_widget.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:client/widgets/spell_list_widget.dart';
 import 'package:client/widgets/health_bar_widget.dart';
@@ -26,7 +25,7 @@ class BattlePlaceScreen extends ConsumerWidget {
       ),
     );
 
-    Widget? _getImage(BuildContext context) {
+    Widget? getImage(BuildContext context) {
       if (provider.placeInfo.imagePath.isEmpty) {
         return null;
       } else {
@@ -47,10 +46,9 @@ class BattlePlaceScreen extends ConsumerWidget {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 5),
+                  padding: const EdgeInsets.only(top: 5, bottom: 5),
                   child: HealthBarWidget(),
                 ),
-                const MyDivider(),
                 BuffBarWidget()
               ],
             ),
@@ -71,7 +69,7 @@ class BattlePlaceScreen extends ConsumerWidget {
                         child: Align(
                             alignment: Alignment.center,
                             heightFactor: 200 / (350 + 50),
-                            child: _getImage(context)),
+                            child: getImage(context)),
                       ),
                     ),
                   ),
@@ -123,7 +121,7 @@ class BattlePlaceScreen extends ConsumerWidget {
               ),
             ),
           ),
-          SpellListWidget(),
+          const SpellListWidget(),
         ],
       ),
     );

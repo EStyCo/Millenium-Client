@@ -1,12 +1,13 @@
-import 'dart:ui';
 
 import 'package:client/bloc/action_screen/action_screen_bloc.dart';
 import 'package:client/bloc/action_screen/action_screen_state.dart';
 import 'package:client/pages/Screens/chat/chat_screen.dart';
 import 'package:client/pages/Screens/logs/logs_screen.dart';
+import 'package:client/services/handlers/chat_handler.dart';
 import 'package:client/widgets/appbars/default_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 class DefaultPage extends StatefulWidget {
   const DefaultPage({super.key});
@@ -22,6 +23,7 @@ class DefaultPageState extends State<DefaultPage> {
   void initState() {
     super.initState();
     _pageController = PageController(initialPage: _selectedIndex);
+    GetIt.I<ChatHandler>().connectHub();
   }
 
   void _onItemTapped(int index) {
@@ -54,18 +56,20 @@ class DefaultPageState extends State<DefaultPage> {
           const ChatScreen()
         ],
       ),
-      bottomNavigationBar: ClipRRect(
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(25),
-          topRight: Radius.circular(25),
-        ),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 0, sigmaY: 5),
+      bottomNavigationBar: Container(
+        color: _selectedIndex == 0
+            ? const Color.fromARGB(255, 214, 213, 213)
+            : Colors.transparent,
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(25),
+            topRight: Radius.circular(25),
+          ),
           child: Container(
-            color: Colors.white.withOpacity(0.3),
+            color: const Color.fromARGB(255, 203, 203, 203),
             child: BottomNavigationBar(
               selectedItemColor: Colors.black,
-              backgroundColor: Colors.transparent, 
+              backgroundColor: Colors.transparent,
               currentIndex: _selectedIndex,
               onTap: _onItemTapped,
               items: const [

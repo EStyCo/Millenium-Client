@@ -18,49 +18,30 @@ class HealthBarWidget extends ConsumerWidget {
     final maxHP = characterHealthBarWidget.maxHP;
     final maxMP = characterHealthBarWidget.maxMP;
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ElevatedButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/modalChar');
-          },
-          child: Row(children: [
-            const Icon(Icons.heart_broken, color: Colors.red),
-            const SizedBox(width: 5),
-            Text(
-              '$currentHP/$maxHP',
-              style: const TextStyle(color: Colors.black),
-            ),
-          ]),
+    return SizedBox(
+      
+      width: 180,
+      height: 40,
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/modalChar');
+        },
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.heart_broken, color: Colors.red),
+              const SizedBox(width: 5),
+              Text(
+                '$currentHP/$maxHP',
+                style: const TextStyle(color: Colors.black),
+              ),
+            ],
+          ),
         ),
-        // const SizedBox(
-        //   width: 80,
-        // ),
-        // Row(
-        //   children: [
-        //     ElevatedButton(
-        //       onPressed: () {},
-        //       child: Row(
-        //         children: [
-        //           const Icon(Icons.bolt_outlined, color: Colors.lightBlue),
-        //           const SizedBox(width: 5),
-        //           Text(
-        //             '$currentMP/$maxMP',
-        //             style: const TextStyle(color: Colors.black),
-        //           ),
-        //         ],
-        //       ),
-        //     ),
-        //   ],
-        // ),
-        // ElevatedButton(
-        //   onPressed: () {
-        //     Navigator.pushNamed(context, '/modalInv');
-        //   },
-        //   child: const Icon(Icons.inventory),
-        // )
-      ],
+      ),
     );
   }
 }

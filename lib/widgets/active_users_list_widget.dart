@@ -15,7 +15,7 @@ class ActiveUsersListWidget extends ConsumerWidget {
     final provider =
         ref.watch(ChangeNotifierProvider<BattlePlaceHandler>((ref) => handler));
 
-    Color _changeColor(int index) {
+    Color changeColor(int index) {
       if (provider.listUsers[index].name == provider.targetName) {
         return Colors.black12;
       } else {
@@ -35,7 +35,7 @@ class ActiveUsersListWidget extends ConsumerWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: AnimatedContainer(
-                  color: _changeColor(index),
+                  color: changeColor(index),
                   duration: const Duration(milliseconds: 250),
                   curve: Curves.easeOutQuad,
                   child: ListTile(

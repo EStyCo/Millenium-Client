@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'package:client/models/Place/details_monster_request.dart';
-import 'package:client/models/Request/Spells/attack_monster.dart';
 import 'package:client/models/Place/place.dart';
-import 'package:client/models/Request/Spells/attack_user.dart';
 import 'package:client/models/Response/api_response.dart';
 import 'package:client/models/Utilities/base_url.dart';
 import 'package:client/services/web/base_service.dart';

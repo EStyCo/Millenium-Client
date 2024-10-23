@@ -12,7 +12,7 @@ class StatsService extends BaseService {
     return sendAsync(APIRequest(
       apiType: ApiType.POST,
       data: jsonEncode(dto.toJson()),
-      url: '${BaseUrl.Get()}$route/getstats',
+      url: '${BaseUrl.Get()}$route/stats',
     ));
   }
 

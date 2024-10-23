@@ -1,7 +1,3 @@
-import 'package:client/widgets/appbars/default_appbar.dart';
-import 'package:client/widgets/divider_widget.dart';
-import 'package:client/widgets/equipment_widget.dart';
-import 'package:client/widgets/stats_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';

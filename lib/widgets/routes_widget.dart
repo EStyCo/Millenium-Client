@@ -52,20 +52,3 @@ class RoutesWidget extends ConsumerWidget {
     );
   }
 }
-
-          // Container(
-          //   margin: const EdgeInsets.only(left: 15),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //     children: [
-          //       ElevatedButton(
-          //         onPressed: () {
-          //           actionBloc.add(
-          //             RouteService().getActionEvent('123'),
-          //           );
-          //         },
-          //         child: const Text('В город'),
-          //       ),
-          //     ],
-          //   ),
-          // ),

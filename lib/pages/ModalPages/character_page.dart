@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CharacterModalPage extends StatelessWidget {
-  CharacterModalPage({super.key});
+  const CharacterModalPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +77,7 @@ class TabCharacterWidget extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 25),
-              EquipmentWidget(),
+              const EquipmentWidget(),
             ],
           ),
           const MyDivider(),
@@ -96,7 +96,7 @@ class TabModifiersWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     BlocProvider.of<EquipmentBloc>(context).add(GetEquipmentEvent());
 
-    return SingleChildScrollView(
+    return const SingleChildScrollView(
       child: Column(
         children: [
           Text('123'),
